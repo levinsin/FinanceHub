@@ -3,6 +3,11 @@ document.addEventListener('DOMContentLoaded', () => {
     const registerForm = document.getElementById('registerForm');
     const errorMessage = document.getElementById('errorMessage');
     const emailInput = document.getElementById('email');
+    const birthdayInput = document.getElementById('birthday');
+
+    // Set max date for birthday to today
+    const today = new Date().toISOString().split('T')[0];
+    birthdayInput.setAttribute('max', today);
 
     // Get email from session storage
     const email = sessionStorage.getItem('registerEmail');
@@ -30,7 +35,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         if (password.length < 6) {
-            errorMessage.textContent = 'Password must be at least 6 characters';
+            errorMessage.textContent = 'Password must be at least 6 characters long';
             return;
         }
 

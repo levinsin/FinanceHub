@@ -28,11 +28,13 @@ const userSchema = new Schema(
             trim: true
         },
 
+        // User's full legal name (optional)
         fullName: {
             type: String,
             trim: true
         },
 
+        // User's date of birth (optional)
         birthday: {
             type: Date
         }
