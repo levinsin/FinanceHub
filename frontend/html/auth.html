@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login / Register - FinanceHub</title>
+    <link rel="stylesheet" href="/css/index.css">
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>FinanceHub</h1>
+            <p class="subtitle">Login or Register</p>
+        </div>
+        
+        <div class="auth-container">
+            <!-- Email Check Form -->
+            <div id="emailCheckForm" class="auth-form">
+                <h2>Enter Your Email</h2>
+                <form id="emailForm">
+                    <div class="form-group">
+                        <label for="email">Email Address</label>
+                        <input type="email" id="email" name="email" required placeholder="Enter your email">
+                    </div>
+                    <button type="submit" class="btn btn-primary">Continue</button>
+                </form>
+                <a href="/" class="back-link">← Back to Home</a>
+            </div>
+
+            <!-- Login Form (hidden initially) -->
+            <div id="loginForm" class="auth-form" style="display: none;">
+                <h2>Welcome Back!</h2>
+                <p class="email-display">Email: <strong id="loginEmail"></strong></p>
+                <form id="loginFormSubmit">
+                    <div class="form-group">
+                        <label for="loginPassword">Password</label>
+                        <input type="password" id="loginPassword" name="password" required placeholder="Enter your password">
+                    </div>
+                    <div id="loginError" class="error-message"></div>
+                    <button type="submit" class="btn btn-primary">Login</button>
+                </form>
+                <button id="backToEmail" class="btn btn-secondary">← Change Email</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="/js/auth.js"></script>
+</body>
+</html>
