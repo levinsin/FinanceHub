@@ -1,0 +1,27 @@
+{
+  "name": "finance-hub",
+  "version": "1.0.0",
+  "description": "A Dashboard to track your expenses!",
+  "homepage": "https://github.com/levinsin/FinanceHub#readme",
+  "bugs": {
+    "url": "https://github.com/levinsin/FinanceHub/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/levinsin/FinanceHub.git"
+  },
+  "license": "ISC",
+  "author": "Christoph Gahabka, Levin Singler, Jonathan Remus",
+  "main": "backend/src/index.js",
+  "type": "module",
+  "scripts": {
+    "start": "node backend/src/index.js",
+    "dev": "nodemon backend/src/index.js"
+  },
+  "dependencies": {
+    "dotenv": "^17.2.3",
+    "express": "^5.2.1",
+    "mongoose": "^9.1.5",
+    "nodemon": "^3.1.11"
+  }
+}
