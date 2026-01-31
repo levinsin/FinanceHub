@@ -26,6 +26,15 @@ const userSchema = new Schema(
             unique: true,
             lowercase: true,
             trim: true
+        },
+
+        fullName: {
+            type: String,
+            trim: true
+        },
+
+        birthday: {
+            type: Date
         }
         
     },

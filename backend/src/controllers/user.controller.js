@@ -2,7 +2,7 @@ import { User } from "../models/user.model.js";
 
 const registerUser = async (req, res) => {
 try {
-    const { username, email, password } = req.body;
+    const { username, email, password, fullName, birthday } = req.body;
 
     // basic validation 
 
@@ -23,6 +23,8 @@ try {
         username,
         email: email.toLowerCase(),
         password,
+        fullName,
+        birthday
     });
 
     res.status(201).json({
@@ -94,8 +96,31 @@ const logoutuser = async (req, res) => {
         });
     }
 }
+
+const checkEmail = async (req, res) => {
+    try {
+        const { email } = req.body;
+
+        if (!email) {
+            return res.status(400).json({ message: "Email is required" });
+        }
+
+        const user = await User.findOne({ email: email.toLowerCase() });
+
+        res.status(200).json({
+            exists: !!user
+        });
+
+    } catch (error) {
+        res.status(500).json({
+            message: "Internal Server Error", error: error.message
+        });
+    }
+}
+
 export {
     registerUser,
     loginUser,
-    logoutuser
+    logoutuser,
+    checkEmail
 };
