@@ -2,35 +2,55 @@ import { User } from "../models/user.model.js";
 
 const registerUser = async (req, res) => {
 try {
-    let { username, email, password, fullName, birthday } = req.body;
+    let { surname, lastname, email, password, birthday } = req.body;
 
     // sanitize
-    username = username?.trim();
+    surname = surname?.trim().title();
+    lastname = lastname?.trim().title();
     email = email?.trim()?.toLowerCase();
     password = password?.trim();
-    fullName = fullName?.trim();
 
     // basic validation
-    if (!username || !email || !password) {
-        return res.status(400).json({ message: "username, email and password are required" });
+    if (!surname || !lastname || !email || !password) {
+        return res.status(400).json({ message: "surname, lastname, email and password are required" });
     }
 
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    const emailRegex = new RegExp([
+        "(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*)",
+        "|",
+        "\"(?:[\\x01-\\x08\\x0b\\x0c\\x0e-\\x1f\\x21\\x23-\\x5b\\x5d-\\x7f]|\\\\[\\x01-\\x09\\x0b\\x0c\\x0e-\\x7f])*\")",
+        "@",
+        "(?:(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?",
+        "|",
+        "\\[(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\.){3}",
+        "(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?|[a-z0-9-]*[a-z0-9]:",
+        "(?:[\\x01-\\x08\\x0b\\x0c\\x0e-\\x1f\\x21-\\x5a\\x53-\\x7f]|\\\\[\\x01-\\x09\\x0b\\x0c\\x0e-\\x7f])+)",
+        "\\]"
+    ].join(""));
+
     if (!emailRegex.test(email)) {
         return res.status(400).json({ message: "Invalid email format" });
     }
 
-    if (password.length < 6) {
-        return res.status(400).json({ message: "Password must be at least 6 characters" });
-    }
+    // if (password.length < 6) {
+    //     return res.status(400).json({ message: "Password must be at least 6 characters" });
+    // }
 
-    // check if user exists already (by email or username)
-    const existing = await User.findOne({ $or: [{ email }, { username }] });
+    // require password: min 8 chars, at least one uppercase, one lowercase, one digit, one special
+    const pwdRegex = /^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[.#\/\+\-#!@$%^&*\_]).{8,}$/;
+    if (!pwdRegex.test(password)) {
+        return res.status(400).json({
+            message: "Password must be at least 8 characters long and include at least one uppercase letter, one lowercase letter, one digit, and one special character."
+        });
+    }
+    
+    // check if user exists already (by email or lastname)
+    const existing = await User.findOne({ $or: [{ email }, { lastname }] });
     if (existing) {
         if (existing.email === email) {
             return res.status(400).json({ message: "Email already in use" });
         }
-        return res.status(400).json({ message: "Username already taken" });
+        return res.status(400).json({ message: "Lastname already taken" });
     }
 
     // parse/validate birthday if provided
@@ -44,10 +64,10 @@ try {
 
     // create user
     const user = await User.create({
-        username,
+        surname,
+        lastname,
         email,
         password,
-        fullName,
         birthday: birthdayDate
     });
 

@@ -3,16 +3,17 @@ import bcrypt from "bcrypt";
 
 const userSchema = new Schema(
     {
-        username: {
+        surname: {
             type: String,
             required: true,
-            unique: true,
-            lowercase: true,
-            trim: true,
-            minLength: 1,
-            maxLength: 30         
+            trim: true
         },
 
+        lastname: {
+            type: String,
+            required: true,
+            trim: true
+        },
         password: {
             type: String,
             required: true,
@@ -25,12 +26,6 @@ const userSchema = new Schema(
             required: true,
             unique: true,
             lowercase: true,
-            trim: true
-        },
-
-        // User's full legal name (optional)
-        fullName: {
-            type: String,
             trim: true
         },
 
