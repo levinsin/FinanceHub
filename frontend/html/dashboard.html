@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - FinanceHub</title>
+    <link rel="stylesheet" href="/css/index.css">
+</head>
+<body>
+    <header class="topbar">
+        <div class="nav-left">
+            <button class="nav-btn">Create new expense</button>
+            <button class="nav-btn">Analyze data</button>
+            <button class="nav-btn">Test</button>
+        </div>
+        <div class="nav-right">
+            <button id="logoutBtn" class="secondary-btn">Logout</button>
+        </div>
+    </header>
+
+    <main class="main-area">
+        <div id="hero" class="hero">
+            <h1 id="heroTitle">Welcome to your dashboard</h1>
+        </div>
+
+        <section class="container dashboard" id="dashboardContent" aria-hidden="true">
+            <p id="welcomeMessage">You have successfully logged in.</p>
+            <div class="dashboard-actions">
+                <!-- placeholder for dashboard controls -->
+            </div>
+        </section>
+    </main>
+    <script src="/js/dashboard.js"></script>
+</body>
+</html>

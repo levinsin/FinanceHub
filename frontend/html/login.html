@@ -1,34 +1,26 @@
 <!DOCTYPE html>
-<html lang="de">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login</title>
-    <link rel="stylesheet" href="../css/login.css">
+    <title>Login - FinanceHub</title>
+    <link rel="stylesheet" href="/css/index.css">
 </head>
 <body>
-
-<div class="login-container">
-    <h1>Anmelden</h1>
-    <form>
-        <div class="input-group">
-            <label for="email">E-Mail Adresse</label>
-            <input type="email" id="email" placeholder="name@beispiel.de" required>
+    <div class="container">
+        <div class="auth-form">
+            <h2>Login to FinanceHub</h2>
+            <form id="emailForm">
+                <div class="form-group">
+                    <label for="email">Email</label>
+                    <input type="email" id="email" name="email" required placeholder="Enter your email">
+                </div>
+                <button type="submit" class="primary-btn">Continue</button>
+                <div id="errorMessage" class="error-message"></div>
+            </form>
+            <a href="/" class="back-link">← Back to Home</a>
         </div>
-
-        <div class="input-group">
-            <label for="password">Passwort</label>
-            <input type="password" id="password" placeholder="••••••••" required>
-        </div>
-
-        <button type="submit" class="login-btn">Einloggen</button>
-
-        <div class="options">
-            <label><input type="checkbox"> Angemeldet bleiben</label>
-            <a href="#">Passwort vergessen?</a>
-        </div>
-    </form>
-</div>
-
+    </div>
+    <script src="/js/login.js"></script>
 </body>
 </html>

@@ -3,16 +3,17 @@ import bcrypt from "bcrypt";
 
 const userSchema = new Schema(
     {
-        username: {
+        surname: {
             type: String,
             required: true,
-            unique: true,
-            lowercase: true,
-            trim: true,
-            minLength: 1,
-            maxLength: 30         
+            trim: true
         },
 
+        lastname: {
+            type: String,
+            required: true,
+            trim: true
+        },
         password: {
             type: String,
             required: true,
@@ -26,6 +27,11 @@ const userSchema = new Schema(
             unique: true,
             lowercase: true,
             trim: true
+        },
+
+        // User's date of birth (optional)
+        birthday: {
+            type: Date
         }
         
     },
@@ -35,12 +41,13 @@ const userSchema = new Schema(
     }
 )
 
-// before saving any password we need to hash it
-userSchema.pre("save", async function (next) {
-    if (!this.isModified("password")) return next();
-    this.password = await bcrypt.hash(this.password, 10);
+// Replace/fix the pre-save hook to use async/promise style (do not accept `next`)
+userSchema.pre('save', async function() {
+    // if password wasn't modified, continue
+    if (!this.isModified('password')) return;
 
-    next();
+    const salt = await bcrypt.genSalt(10);
+    this.password = await bcrypt.hash(this.password, salt);
 });
 
 // compare passwords
