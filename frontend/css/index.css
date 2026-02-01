@@ -17,15 +17,17 @@ body {
     display: flex;
     flex-direction: column;   /* Inhalte untereinander */
 }
-/*
+
 .container {
-    flex: 1;          //füllt den verfügbaren Platz
+    flex: 1;          
     width: 100%;
     max-width: 500px;
-    margin: 0 auto;   // zentriert nur horizontal
+    margin: 0 auto;
     padding: 20px;
 }
-*/
+
+
+
 
 
 /* Top navigation bar */
@@ -109,12 +111,13 @@ body {
     .nav-btn { padding: 6px 8px; font-size: 13px; }
 }
 
+/*
 .container {
     width: 100%;
     max-width: 500px;
     padding: 20px;
 }
-
+*/
 .welcome-section, .auth-form, .dashboard {
     background: white;
     padding: 40px;
