@@ -25,11 +25,12 @@ document.addEventListener('DOMContentLoaded', () => {
         e.preventDefault();
         errorMessage.textContent = '';
 
-        const fullName = document.getElementById('fullName').value.trim();
+        const surname = document.getElementById('surname').value.trim();
+        const lastname = document.getElementById('lastname').value.trim();
         const birthday = document.getElementById('birthday').value;
         const password = document.getElementById('password').value;
 
-        if (!fullName || !birthday || !password) {
+        if (!surname || !lastname || !birthday || !password) {
             errorMessage.textContent = 'Please fill in all fields';
             return;
         }
@@ -38,9 +39,6 @@ document.addEventListener('DOMContentLoaded', () => {
             errorMessage.textContent = 'Password must be at least 6 characters long';
             return;
         }
-
-        // Generate username from email (part before @)
-        const username = email.split('@')[0];
 
         try {
             // Register user
@@ -51,8 +49,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 },
                 body: JSON.stringify({ 
                     email, 
-                    username, 
-                    fullName, 
+                    surname,
+                    lastname,
                     birthday, 
                     password 
                 })

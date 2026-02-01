@@ -5,8 +5,8 @@ try {
     let { surname, lastname, email, password, birthday } = req.body;
 
     // sanitize
-    surname = surname?.trim().title();
-    lastname = lastname?.trim().title();
+    surname = surname?.trim().toLowerCase();
+    lastname = lastname?.trim().toLowerCase();
     email = email?.trim()?.toLowerCase();
     password = password?.trim();
 
@@ -15,18 +15,7 @@ try {
         return res.status(400).json({ message: "surname, lastname, email and password are required" });
     }
 
-    const emailRegex = new RegExp([
-        "(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*)",
-        "|",
-        "\"(?:[\\x01-\\x08\\x0b\\x0c\\x0e-\\x1f\\x21\\x23-\\x5b\\x5d-\\x7f]|\\\\[\\x01-\\x09\\x0b\\x0c\\x0e-\\x7f])*\")",
-        "@",
-        "(?:(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?",
-        "|",
-        "\\[(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\.){3}",
-        "(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?|[a-z0-9-]*[a-z0-9]:",
-        "(?:[\\x01-\\x08\\x0b\\x0c\\x0e-\\x1f\\x21-\\x5a\\x53-\\x7f]|\\\\[\\x01-\\x09\\x0b\\x0c\\x0e-\\x7f])+)",
-        "\\]"
-    ].join(""));
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/i;
 
     if (!emailRegex.test(email)) {
         return res.status(400).json({ message: "Invalid email format" });
@@ -73,7 +62,7 @@ try {
 
     return res.status(201).json({
         message: "User registered!",
-        user: { id: user._id, email: user.email, username: user.username }
+        user: { id: user._id, email: user.email, surname: user.surname, lastname: user.lastname }
     });
 
 } catch (error) {
@@ -119,7 +108,9 @@ const loginUser = async (req, res) => {
             user: {
                 id: user._id,
                 email: user.email,
-                username: user.username 
+                username: user.username,
+                surname: user.surname,
+                lastname: user.lastname
             }
         })
     } catch (error) {
