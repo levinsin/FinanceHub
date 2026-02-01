@@ -13,6 +13,87 @@ body {
     align-items: center;
 }
 
+/* Top navigation bar */
+.topbar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 64px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 20px;
+    gap: 12px;
+    background: rgba(255, 255, 255, 0.95);
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+    z-index: 100;
+}
+
+.nav-left {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+}
+
+.nav-btn {
+    padding: 8px 12px;
+    border: 1px solid #667eea;
+    background: white;
+    color: #334155;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: 600;
+}
+
+.nav-btn:hover { opacity: 0.95; transform: translateY(-1px); }
+
+.nav-right { display: flex; align-items: center; }
+
+/* Hero centered message and animation */
+.main-area { padding-top: 80px; }
+
+.hero {
+    position: fixed;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%) scale(1);
+    transition: top 700ms cubic-bezier(.2,.9,.3,1), transform 700ms cubic-bezier(.2,.9,.3,1), color 400ms;
+    z-index: 100;
+    text-align: center;
+    pointer-events: none;
+}
+
+.hero h1 {
+    color: #ffffff;
+    font-size: 48px;
+    line-height: 1;
+    text-shadow: 0 6px 20px rgba(0,0,0,0.3);
+    margin: 0;
+}
+
+/* After adding .shrink the hero moves to the top center and shrinks */
+.hero.shrink {
+    top: 14px;
+    transform: translateX(-50%) scale(0.58);
+}
+
+.hero.shrink h1 { color: #764ba2; text-shadow: none; }
+
+/* Dashboard content appears after animation */
+#dashboardContent { opacity: 0; transform: translateY(10px); transition: opacity 300ms 800ms, transform 300ms 800ms; }
+#dashboardContent.visible { opacity: 1; transform: translateY(0); }
+
+/* Ensure container width looks good with topbar */
+.container { max-width: 1100px; margin: 0 auto; }
+
+@media (max-width: 600px) {
+    .hero h1 { font-size: 28px; }
+    .hero.shrink { transform: translateX(-50%) scale(0.8); }
+    .nav-left { gap: 6px; }
+    .nav-btn { padding: 6px 8px; font-size: 13px; }
+}
+
 .container {
     width: 100%;
     max-width: 500px;
