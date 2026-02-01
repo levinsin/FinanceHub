@@ -4,14 +4,29 @@
     box-sizing: border-box;
 }
 
+html, body {
+    height: 100%;
+    margin: 0;
+}
+
 body {
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
     background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
     min-height: 100vh;
+
     display: flex;
-    justify-content: center;
-    align-items: center;
+    flex-direction: column;   /* Inhalte untereinander */
 }
+/*
+.container {
+    flex: 1;          //füllt den verfügbaren Platz
+    width: 100%;
+    max-width: 500px;
+    margin: 0 auto;   // zentriert nur horizontal
+    padding: 20px;
+}
+*/
+
 
 /* Top navigation bar */
 .topbar {
