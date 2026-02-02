@@ -11,13 +11,14 @@ document.addEventListener('DOMContentLoaded', () => {
     const hero = document.getElementById('hero');
     const heroTitle = document.getElementById('heroTitle');
     const dashboardContent = document.getElementById('dashboardContent');
+    const createExpenseBtn = document.getElementById('createExpenseBtn');
 
     // Check if user is logged in
     const userStr = sessionStorage.getItem('user');
     
     if (!userStr) {
         // Not logged in, redirect to home
-        window.location.href = '/';
+        window.location.href = '/html/index.html';
         return;
     }
 
@@ -38,7 +39,11 @@ document.addEventListener('DOMContentLoaded', () => {
             window.location.href = '/html/index.html';
         });
     }
-
+    if (createExpenseBtn) {
+        createExpenseBtn.addEventListener('click', () => {
+            window.location.href = '/html/expenses.html';
+        });
+    }
     // Trigger hero animation: shrink and move to top
     if (hero) {
         // small delay so the page feels intentional
