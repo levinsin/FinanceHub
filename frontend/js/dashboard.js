@@ -17,7 +17,7 @@ document.addEventListener('DOMContentLoaded', () => {
     
     if (!userStr) {
         // Not logged in, redirect to home
-        window.location.href = '/';
+        window.location.href = '/html/index.html';
         return;
     }
 
