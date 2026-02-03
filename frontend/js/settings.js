@@ -16,10 +16,6 @@ document.addEventListener('DOMContentLoaded', () => {
         if (returntomain) returntomain.addEventListener('click', () => { window.history.back(); });
 
 
-
-
-
-
     const openEmailBtn = document.getElementById("openEmailButton");
     const emailArea = document.getElementById("first_extraArea");
     
