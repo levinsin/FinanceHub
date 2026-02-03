@@ -10,19 +10,18 @@ const getUserId = (req) => req.user.id;
 
 export const createCategory = async (req, res) => {
     try {
-        const userId = getUserId(req);
+        const userId = req.user.id;
         // Do not trust client-provided userId; determine from authenticated request
-        const { name, isGlobal = false } = req.body; // default to user-specific
+        const { name } = req.body; // default to user-specific
         if (!name) return res.status(400).json({ message: 'name is required' });
 
-        if (!isGlobal && !userId) {
+        if (userId) {
             return res.status(401).json({ message: 'Authentication required to create user categories' });
         }
 
         const cat = new Category({
             name: name.trim(),
-            userId: isGlobal ? null : userId,
-            isGlobal: !!isGlobal
+            userId: userId ? userId : null
         });
 
         await cat.save();
@@ -30,10 +29,7 @@ export const createCategory = async (req, res) => {
     } catch (err) {
         // added detailed logging for debugging
         console.error('createCategory failed', {
-            message: err.message,
-            stack: err.stack,
-            body: req.body,
-            userId: getUserId(req)
+            message: err.message
         });
         if (err.code === 11000) return res.status(409).json({ message: 'Category with that name already exists' });
         return res.status(500).json({ message: 'Could not create category', error: err.message });
@@ -42,8 +38,8 @@ export const createCategory = async (req, res) => {
 
 export const getCategories = async (req, res) => {
     try {
-        const userId = getUserId(req);
-        const categories = await Category.find({ $or: [{ userId }, { isGlobal: false }] }).sort({ name: 1 });
+        const userId = req.user.id;
+        const categories = await Category.find({ userId }).sort({ name: 1 });
         return res.json(categories);
     } catch (err) {
         return res.status(500).json({ message: 'Could not fetch categories', error: err.message });
@@ -52,7 +48,7 @@ export const getCategories = async (req, res) => {
 
 export const getCategory = async (req, res) => {
     try {
-        const userId = getUserId(req);
+        const userId = req.user.id;
         const { id } = req.params;
         const category = await Category.findOne({ _id: id, $or: [{ userId }, { isGlobal: true }] });
         if (!category) return res.status(404).json({ message: 'Category not found' });
@@ -64,7 +60,7 @@ export const getCategory = async (req, res) => {
 
 export const updateCategory = async (req, res) => {
     try {
-        const userId = getUserId(req);
+        const userId = req.user.id;
         const { id } = req.params;
         const updates = {};
         if (req.body.name) updates.name = req.body.name.trim();
@@ -112,7 +108,7 @@ export const updateCategory = async (req, res) => {
 
 export const deleteCategory = async (req, res) => {
   try {
-    const userId = getUserId(req);
+    const userId = req.user.id;
     const { id } = req.params;
 
     const cat = await Category.findById(id);

@@ -15,7 +15,7 @@ const getUserId = (req) => {
 
 export const createExpense = async (req, res) => {
     try {
-        const userId = getUserId(req);
+        const userId = req.body.userId;
         if (!userId) return res.status(401).json({ message: 'Authentication required' });
         const { title, amount, date, category, costType, notes } = req.body;
 
@@ -43,7 +43,7 @@ export const createExpense = async (req, res) => {
 
 export const getExpenses = async (req, res) => {
     try {
-        const userId = getUserId(req);
+        const userId = req.body.userId;
         if (!userId) return res.status(401).json({ message: 'Authentication required' });
         const expenses = await Expense.find({ userId});
         return res.json(expenses);
@@ -56,7 +56,7 @@ export const getExpenses = async (req, res) => {
 
 export const getExpense = async (req, res) => {
     try {
-        const userId = getUserId(req);
+        const userId = req.body.userId;
         const { id } = req.params;
         const expense = await Expense.findOne({ _id: id, userId });
         if (!expense) return res.status(404).json({ message: 'Expense not found' });
@@ -69,7 +69,7 @@ export const getExpense = async (req, res) => {
 
 export const updateExpense = async (req, res) => {
     try {
-        const userId = getUserId(req);
+        const userId = req.body.userId;
         const { id } = req.params;
         const updates = {};
         if (req.body.title) updates.title = req.body.title.trim();
@@ -94,7 +94,7 @@ export const updateExpense = async (req, res) => {
 
 export const deleteExpense = async (req, res) => {
     try {
-        const userId = getUserId(req);
+        const userId = req.body.userId;
         const { id } = req.params;
 
         const expense = await Expense.findOneAndDelete({ _id: id, userId });

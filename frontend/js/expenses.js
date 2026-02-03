@@ -237,4 +237,7 @@ window.addEventListener('load', () => {
   const amountEl = form.elements.amount;
   if (amountEl) amountEl.step = '1';
   // loadExpenses();
+  // attach return button handler
+  const returnBtn = document.getElementById('returnBtn');
+  if (returnBtn) returnBtn.addEventListener('click', () => { window.history.back(); });
 });
