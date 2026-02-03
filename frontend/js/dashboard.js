@@ -38,6 +38,14 @@ document.addEventListener('DOMContentLoaded', () => {
             window.location.href = '/html/index.html';
         });
     }
+    // user settings
+    if (UserBtn) {
+        UserBtn.addEventListener('click', () => {
+            sessionStorage.removeItem('user');
+            window.location.href = '/html/settings.html';
+        });
+    }
+
 
     // Trigger hero animation: shrink and move to top
     if (hero) {

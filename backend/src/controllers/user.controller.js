@@ -108,7 +108,6 @@ const loginUser = async (req, res) => {
             user: {
                 id: user._id,
                 email: user.email,
-                username: user.username,
                 surname: user.surname,
                 lastname: user.lastname
             }
@@ -163,10 +162,14 @@ const checkEmail = async (req, res) => {
         });
     }
 }
+const usersettings = async(req, res) =>{
+     
+}
 
 export {
     registerUser,
     loginUser,
     logoutuser,
-    checkEmail
+    checkEmail,
+    usersettings
 };
