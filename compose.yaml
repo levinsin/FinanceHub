@@ -1,10 +1,23 @@
 services:
+  db:
+    image: mongo:latest
+    ports:
+      - "3000:3000"
+
+
   node-app:
     build:
       context: .
       dockerfile: node.Dockerfile # Node image
     ports:
-      - "3000:3000"
+      - "4000:4000"
+    expose:
+      - "4000"
+    env_file:
+      - .env
+    depends_on:
+      - db
+
 
 
   nginx:
@@ -19,6 +32,6 @@ services:
       - ./etc/nginx/sites-available/finance-hub.local:/etc/nginx/sites-available/finance-hub.local:ro
       # Trick: Wir mounten den Ordner auf sites-enabled, damit Nginx die Config findet
       - ./etc/nginx/sites-available:/etc/nginx/sites-enabled:ro
-      - ./frontend/html:/usr/share/nginx/html:ro
+      - ./frontend:/usr/share/nginx/html:ro
     depends_on:
       - node-app

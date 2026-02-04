@@ -4,16 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="efd30377-3f7d-4a43-94a2-e2626d427a85" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.dockerignore" beforeDir="false" afterPath="$PROJECT_DIR$/.dockerignore" afterDir="false" />
+    <list default="true" id="efd30377-3f7d-4a43-94a2-e2626d427a85" name="Changes" comment="extra docker file for nginx">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Dockerfile" beforeDir="false" afterPath="$PROJECT_DIR$/node.Dockerfile" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/backend/src/app.js" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/app.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/compose.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/compose.yaml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/etc/nginx/nginx.conf" beforeDir="false" afterPath="$PROJECT_DIR$/etc/nginx/nginx.conf" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/etc/nginx/sites-available/example.com" beforeDir="false" afterPath="$PROJECT_DIR$/etc/nginx/sites-available/finance-hub.local" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/etc/nginx/sites-enabled/example.com" beforeDir="false" afterPath="$PROJECT_DIR$/etc/nginx/sites-enabled/finance-hub.local" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/etc/nginx/sites-available/finance-hub.local" beforeDir="false" afterPath="$PROJECT_DIR$/etc/nginx/sites-available/finance-hub.local" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -52,7 +47,7 @@
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
-        <option value="bundled-js-predefined-d6986cc7102b-9b0f141eb926-JavaScript-WS-253.29346.242" />
+        <option value="bundled-js-predefined-d6986cc7102b-9b0f141eb926-JavaScript-WS-253.30387.83" />
       </set>
     </attachedChunks>
   </component>
@@ -65,6 +60,23 @@
       <updated>1769863661342</updated>
       <workItem from="1769863662590" duration="1673000" />
     </task>
+    <task id="LOCAL-00001" summary="reverse proxy on docker">
+      <option name="closed" value="true" />
+      <created>1770236277280</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1770236277280</updated>
+    </task>
+    <task id="LOCAL-00002" summary="extra docker file for nginx">
+      <option name="closed" value="true" />
+      <created>1770236302242</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1770236302242</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -80,5 +92,10 @@
         </entry>
       </map>
     </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="reverse proxy on docker" />
+    <MESSAGE value="extra docker file for nginx" />
+    <option name="LAST_COMMIT_MESSAGE" value="extra docker file for nginx" />
   </component>
 </project>
