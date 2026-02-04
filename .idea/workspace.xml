@@ -4,11 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="efd30377-3f7d-4a43-94a2-e2626d427a85" name="Changes" comment="extra docker file for nginx">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/src/app.js" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/app.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/etc/nginx/sites-available/finance-hub.local" beforeDir="false" afterPath="$PROJECT_DIR$/etc/nginx/sites-available/finance-hub.local" afterDir="false" />
-    </list>
+    <list default="true" id="efd30377-3f7d-4a43-94a2-e2626d427a85" name="Changes" comment="extra docker file for nginx" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
