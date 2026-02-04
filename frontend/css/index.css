@@ -79,7 +79,7 @@ body {
     transform: translateX(-50%) scale(0.58);
 }
 
-.hero.shrink h1 { color: #111827; text-shadow: none; }
+.hero.shrink h1 { color: #764ba2; text-shadow: none; }
 
 /* Dashboard content appears after animation */
 #dashboardContent { opacity: 0; transform: translateY(10px); transition: opacity 300ms 800ms, transform 300ms 800ms; }

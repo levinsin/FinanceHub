@@ -1,0 +1,43 @@
+server {
+    listen 80;
+    server_name localhost finance-hub.local;
+    #access_log /var/log/nginx/$server_name.access.log;
+    #error_log /var/log/nginx/$server_name.error.log;
+    root /usr/share/nginx/html;
+
+    # API-Proxy (wichtig: vor den anderen location-Blöcken)
+    location /api/ {
+        proxy_pass http://node-app:3000;
+        include /etc/nginx/conf.d/proxy.conf;
+    }
+
+    # Hauptseite
+    location = / {
+        try_files /html/index.html =404;
+    }
+
+    # Login-Seite
+    location = /login {
+        try_files /html/login.html =404;
+    }
+
+    # Register-Seite
+    location = /register {
+        try_files /html/register.html =404;
+    }
+
+    # Dashboard-Seite
+    location = /dashboard {
+        try_files /html/dashboard.html =404;
+    }
+
+    # Password-Seite
+    location = /password {
+        try_files /html/password.html =404;
+    }
+
+    # Statische Dateien (CSS, JS, etc.) - muss nach den exakten location-Blöcken kommen
+    location / {
+        try_files $uri =404;
+    }
+}
