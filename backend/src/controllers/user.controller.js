@@ -34,12 +34,10 @@ try {
     }
     
     // check if user exists already (by email or lastname)
-    const existing = await User.findOne({ $or: [{ email }, { lastname }] });
-    if (existing) {
-        if (existing.email === email) {
-            return res.status(400).json({ message: "Email already in use" });
-        }
-        return res.status(400).json({ message: "Lastname already taken" });
+    // check if user exists already (by email or lastname)
+    const existingByEmail = await User.findOne({ email });
+    if (existingByEmail) {
+        return res.status(400).json({ message: "Email already in use" });
     }
 
     // parse/validate birthday if provided
@@ -66,17 +64,24 @@ try {
     });
 
 } catch (error) {
-    // handle duplicate key (e.g. unique index) and validation errors
+    // detailed logging for duplicate-key issues
+    console.error('registerUser error:', {
+        message: error.message,
+        code: error.code,
+        keyValue: error.keyValue,
+        keyPattern: error.keyPattern,
+        stack: error.stack
+    });
+
     if (error && error.code === 11000) {
-        const key = Object.keys(error.keyValue || {})[0] || "field";
-        return res.status(400).json({ message: `${key} already exists` });
+        const key = Object.keys(error.keyValue || {})[0] || Object.keys(error.keyPattern || {})[0] || 'field';
+        return res.status(400).json({ message: `${key} already exists`, detail: error.keyValue || error.keyPattern });
     }
     if (error && error.name === "ValidationError") {
         const errors = Object.values(error.errors || {}).map(e => e.message);
         return res.status(400).json({ message: "Validation error", errors });
     }
 
-    console.error("registerUser error:", error);
     res.status(500).json({ message: "Internal server error" });
 }
 };
@@ -108,7 +113,6 @@ const loginUser = async (req, res) => {
             user: {
                 id: user._id,
                 email: user.email,
-                username: user.username,
                 surname: user.surname,
                 lastname: user.lastname
             }

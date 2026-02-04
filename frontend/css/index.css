@@ -57,6 +57,7 @@ body {
     position: fixed;
     left: 50%;
     top: 50%;
+    color: #764ba2;
     transform: translate(-50%, -50%) scale(1);
     transition: top 700ms cubic-bezier(.2,.9,.3,1), transform 700ms cubic-bezier(.2,.9,.3,1), color 400ms;
     z-index: 100;
