@@ -2,13 +2,11 @@ services:
   node-app:
     build:
       context: .
-      dockerfile: node.Dockerfile # Node image
+      dockerfile: Dockerfile
     ports:
       - "3000:3000"
     environment:
       - PORT=3000
-      - MONGODB_URI=${MONGODB_URI}
-      - JWT_SECRET=${JWT_SECRET}
     env_file:
       - .env
 
@@ -19,11 +17,9 @@ services:
     ports:
       - "80:80"
     volumes:
-      # Wir reichen nur die Konfigurationsdateien von außen hinein
       - ./etc/nginx/nginx.conf:/etc/nginx/nginx.conf:ro
       - ./etc/nginx/conf.d/proxy.conf:/etc/nginx/conf.d/proxy.conf:ro
       - ./etc/nginx/sites-available/finance-hub.local:/etc/nginx/sites-available/finance-hub.local:ro
-      # Trick: Wir mounten den Ordner auf sites-enabled, damit Nginx die Config findet
       - ./etc/nginx/sites-available:/etc/nginx/sites-enabled:ro
       - ./frontend:/usr/share/nginx/html:ro
     depends_on:
