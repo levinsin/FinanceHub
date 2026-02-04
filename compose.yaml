@@ -1,6 +1,9 @@
 services:
   db:
     image: mongo:latest
+    command: mongod --port 3000
+    env_file:
+      - .env
     ports:
       - "3000:3000"
 
@@ -8,16 +11,20 @@ services:
   node-app:
     build:
       context: .
-      dockerfile: node.Dockerfile # Node image
+      dockerfile: Dockerfile # Node image
     ports:
       - "4000:4000"
     expose:
       - "4000"
-    env_file:
-      - .env
     depends_on:
       - db
-
+    dns:
+      - 8.8.8.8
+      - 1.1.1.1
+    environment:
+      - PORT=4000
+      - MONGODB_URI=mongodb+srv://finance_db_user:Schnoddi@cluster0.xjd4hht.mongodb.net/
+      - JWT_SECRET=q7236t7q623t6q23t6q23t6q23t
 
 
   nginx:
