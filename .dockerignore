@@ -39,7 +39,7 @@ README*
 docs/
 
 # Docker and Compose files
-Dockerfile*
+node.Dockerfile
 docker-compose*
 
 # Temporary and local files

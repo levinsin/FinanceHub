@@ -1,0 +1,19 @@
+server {
+    listen 80;
+    server_name localhost finance-hub.local;
+    #access_log /var/log/nginx/$server_name.access.log;
+    #error_log /var/log/nginx/$server_name.error.log;
+    root /usr/share/nginx/html;
+    index login.html index.html;
+
+    location / {
+
+        try_files $uri $uri/ /index.html;
+
+    }
+
+    location /api/ {
+        proxy_pass http://node-app:3000;
+        include /etc/nginx/conf.d/proxy.conf;
+    }
+}
