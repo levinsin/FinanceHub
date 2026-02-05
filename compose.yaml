@@ -5,10 +5,11 @@ services:
       dockerfile: Dockerfile
     ports:
       - "3000:3000"
-    environment:
-      - PORT=3000
     env_file:
       - .env
+    environment:
+      - NODE_OPTIONS=--dns-result-order=ipv4first
+
 
 
   nginx:
