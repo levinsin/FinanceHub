@@ -21,10 +21,7 @@ services:
     dns:
       - 8.8.8.8
       - 1.1.1.1
-    environment:
-      - PORT=4000
-      - MONGODB_URI=mongodb+srv://finance_db_user:Schnoddi@cluster0.xjd4hht.mongodb.net/
-      - JWT_SECRET=q7236t7q623t6q23t6q23t6q23t
+
 
 
   nginx:
