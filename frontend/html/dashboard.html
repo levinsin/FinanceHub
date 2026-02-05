@@ -6,15 +6,15 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dashboard - FinanceHub</title>
-    <link rel="stylesheet" href="/css/index.css">
+    <link rel="stylesheet" href="/css/dashboard.css">
 </head>
 <body>
     <header class="topbar">
         <div class="nav-left">
             <img src="\images\Icon_FinanceHub.png" alt="Finanzhub Logo" width = 32>
-            <button class="nav-btn">Create new expense</button>
-            <button class="nav-btn">Analyze data</button>
-            <button class="nav-btn">Test</button>
+            <button class="nav-btn-ghost">Create new expense</button>
+            <button class="nav-btn-ghost">Analyze data</button>
+            <button class="nav-btn-ghost">Test</button>
         </div>
         <div class="nav-right">
             <button id = "UserBtn" class = "secondary-btn"><i class="fas fa-user"></i></button>
@@ -35,5 +35,36 @@
         </section>
     </main>
     <script src="/js/dashboard.js"></script>
+
+    <div class="settings-card">
+            <h1>Settings</h1>
+            <div class="settings-row">
+            <label for="currency">Currency</label>
+            <select id="currency" class="settings-select">
+                <option value="eur">EUR  Euro</option>
+                <option value="usd">USD  Dollar</option>
+                <option value="gbp">GBP  Pfund</option>
+            </select>
+        <button id="openEmailButton" class="settings-btn">Change Email</button>
+        <div id="first_extraArea" class="extra-area">
+            <p>Neue Email:</p>
+            <input type="text" placeholder="Name eingeben">
+            <p>Email bestätigen:</p>
+            <input type="text" placeholder="Name eingeben">
+            <button class="secondary-btn">Speichern</button>
+        </div>
+        <button id="openPwdButton" class="settings-btn">Change Password</button>
+        <div id="second_extraArea" class="extra-area">
+            <p>Neues Password:</p>
+            <input type="text" placeholder="Name eingeben">
+            <p>Password wiederholen:</p>
+            <input type="text" placeholder="Name eingeben">
+            <button class="secondary-btn">Speichern</button>
+        </div> 
+
+        </div> 
+
+        <button type = "button" id="returnToMain" class="primary-btn">Save settings</button>
+    </div> </div> <script src="/js/dashboard.js"></script>
 </body>
 </html>

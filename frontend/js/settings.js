@@ -1,17 +1,5 @@
 document.addEventListener('DOMContentLoaded', () => {
    
-/*    const returntomain = document.getElementById('returntomain');
-
-    if (returntomain) {
-        returntomain.addEventListener('click', (event) => {
-            // Verhindert das "Wegspringen" der Seite
-            event.preventDefault(); 
-            
-            console.log("Navigiere zum Dashboard...");
-            window.location.href = 'dashboard.html';
-        });
-    }
-        */
     const returntomain = document.getElementById('returnToMain');
         if (returntomain) returntomain.addEventListener('click', () => { window.history.back(); });
 

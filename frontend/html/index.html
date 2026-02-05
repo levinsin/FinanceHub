@@ -1,44 +1,34 @@
 <!DOCTYPE html>
 <html lang="de">
-<link rel="icon" href="\images\Icon_FinanceHub.png" type="image/png">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Finanzhub - Deine Finanzen im Blick</title>
+    <link rel="icon" href="/images/Icon_FinanceHub.png" type="image/png">
     <link rel="stylesheet" href="/css/index.css">
 </head>
 <body>
-    <div class="container">
-        
-        <header class="site-header">
+    <nav class="topbar">
+        <div class="nav-left">
+             <img src="\images\Icon_FinanceHub.png" alt="Finanzhub Logo" width = 32>
+            <span class="brand-name">Finanzhub</span>
+            <button class="nav-btn-ghost">About Us</button>
+            <button class="nav-btn-ghost">Support</button>
+        </div>
+        <div class="nav-right">
+            <button id="loginBtn" class="login-white-btn">Login</button>
+        </div>
+    </nav>
+
+    <main class="hero-container">
+        <div class="hero-text">
             <h1>Finanzhub</h1>
             <p>Deine Zentrale für einen besseren Überblick über deine Finanzen</p>
-        </header>
-
-        <main>
-            <section class="welcome-section">
-                <div class="text-content">
-                    <h2>Willkommen bei Finanzhub</h2>
-                    <p>
-                        Mit Finanzhub kannst du deine Einnahmen und Ausgaben einfach verwalten, deine Ziele planen
-                        und langfristig einen besseren Überblick über deine finanzielle Situation bekommen.
-                        Alles an einem Ort, übersichtlich und leicht zu bedienen.
-                    </p>
-                    <p>
-                        Melde dich an oder registriere dich, um direkt loszulegen und deine Finanzen strukturiert
-                        zu organisieren.
-                    </p>
-                    <button id="loginBtn" class="primary-btn">Login / Registrieren</button>
-                </div>
-
-                
-            </section>
-        </main>
-
-        <footer class="site-footer">
-            <p>© 2026 Finanzhub – Alle Rechte vorbehalten</p>
-        </footer>
-    </div>
+        </div>
+        <div class="hero-visual">
+            <img src="/images/Finanzübersicht und digitale Interaktion.png" alt="Dashboard" class="main-illustration">
+        </div>
+    </main>
 
     <script src="/js/index.js"></script>
 </body>

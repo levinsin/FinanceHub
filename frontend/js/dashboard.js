@@ -11,7 +11,8 @@ document.addEventListener('DOMContentLoaded', () => {
     const hero = document.getElementById('hero');
     const heroTitle = document.getElementById('heroTitle');
     const dashboardContent = document.getElementById('dashboardContent');
-
+    const openSettingsBtn = document.getElementById("UserBtn");
+    const settingsArea = document.getElementById("settings-card");
     // Check if user is logged in
     const userStr = sessionStorage.getItem('user');
     
@@ -38,6 +39,8 @@ document.addEventListener('DOMContentLoaded', () => {
             window.location.href = '/html/index.html';
         });
     }
+
+    /*
     // user settings
     if (UserBtn) {
         UserBtn.addEventListener('click', () => {
@@ -45,6 +48,7 @@ document.addEventListener('DOMContentLoaded', () => {
             window.location.href = '/html/settings.html';
         });
     }
+        */
 
 
     // Trigger hero animation: shrink and move to top
@@ -65,4 +69,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         hero.addEventListener('transitionend', onTransitionEnd);
     }
+     openSettingsBtn.addEventListener("click", () => {
+        settingsArea.classList.add("visible");
+     });
 });
