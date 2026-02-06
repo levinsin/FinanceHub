@@ -5,6 +5,9 @@ import { fileURLToPath } from "url";
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
+console.log("🚀 SERVER STARTET JETZT...");
+console.log("DB-URI vorhanden:", process.env.MONGODB_URI ? "Ja": "Nein");
+
 // server
 const server = http.createServer((req, res) => {
 

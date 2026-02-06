@@ -12,4 +12,4 @@ COPY . .
 # node server
 EXPOSE 3000
 
-CMD ["node", "backend/src/app.js"]
+CMD ["node", "backend/src/index.js"]

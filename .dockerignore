@@ -16,7 +16,6 @@ yarn-debug.log
 .hg/
 
 # Environment and secrets
-.env*
 *.pem
 *.key
 *.crt
