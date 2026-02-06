@@ -1,6 +1,6 @@
 import express from 'express';
 import {
-  createCategory, getCategories, getCategory, updateCategory, deleteCategory
+  createCategory, getCategories, deleteCategory
 } from '../controllers/categories.controller.js';
 import { authMiddleware } from '../middleware/auth.middleware.js';
 
@@ -11,8 +11,8 @@ router.use(authMiddleware);
 
 router.get('/', getCategories);
 router.post('/', createCategory);
-router.get('/:id', getCategory);
-router.put('/:id', updateCategory);
+// router.get('/:id', getCategory);
+// router.put('/:id', updateCategory);
 router.delete('/:id', deleteCategory);
 
 export default router;

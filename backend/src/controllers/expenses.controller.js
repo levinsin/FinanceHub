@@ -4,18 +4,18 @@ import Expense from "../models/expenses.model.js";
 /**
  * Helper to obtain current user id from request (supports different auth middlewares)
  */
-const getUserId = (req) => {
-    // primary: value set by auth middleware
-    const fromAuth = req.userId || req.user?.id || req.user?._id;
-    if (fromAuth) return fromAuth;
-    // fallback: allow client-provided userId (non-ideal for security, but requested)
-    if (req && req.body && req.body.userId) return req.body.userId;
-    return null;
-};
+// const getUserId = (req) => {
+//     // primary: value set by auth middleware
+//     const fromAuth = req.userId || req.user?.id || req.user?._id;
+//     if (fromAuth) return fromAuth;
+//     // fallback: allow client-provided userId (non-ideal for security, but requested)
+//     if (req && req.body && req.body.userId) return req.body.userId;
+//     return null;
+// };
 
 export const createExpense = async (req, res) => {
     try {
-        const userId = req.body.userId;
+        const userId = req.user.id;
         if (!userId) return res.status(401).json({ message: 'Authentication required' });
         const { title, amount, date, category, costType, notes } = req.body;
 
@@ -45,7 +45,7 @@ export const getExpenses = async (req, res) => {
     try {
         const userId = req.body.userId;
         if (!userId) return res.status(401).json({ message: 'Authentication required' });
-        const expenses = await Expense.find({ userId});
+        const expenses = await Expense.find({ userId });
         return res.json(expenses);
     } catch (err) {
         console.error('getExpenses error:', err);
@@ -54,18 +54,18 @@ export const getExpenses = async (req, res) => {
 
 };
 
-export const getExpense = async (req, res) => {
-    try {
-        const userId = req.body.userId;
-        const { id } = req.params;
-        const expense = await Expense.findOne({ _id: id, userId });
-        if (!expense) return res.status(404).json({ message: 'Expense not found' });
-        return res.json(expense);
-    } catch (err) {
-        console.error('getExpense error:', err);
-        return res.status(500).json({ message: 'Could not fetch expense', error: err.message });
-    }
-};
+// export const getExpense = async (req, res) => {
+//     try {
+//         const userId = req.body.userId;
+//         const { id } = req.params;
+//         const expense = await Expense.findOne({ _id: id, userId });
+//         if (!expense) return res.status(404).json({ message: 'Expense not found' });
+//         return res.json(expense);
+//     } catch (err) {
+//         console.error('getExpense error:', err);
+//         return res.status(500).json({ message: 'Could not fetch expense', error: err.message });
+//     }
+// };
 
 export const updateExpense = async (req, res) => {
     try {

@@ -2,10 +2,7 @@ import jwt from 'jsonwebtoken';
 
 // Use environment JWT_SECRET if present; otherwise fall back to a development default.
 // Avoid throwing during module import to prevent crashes due to import ordering.
-const JWT_SECRET = process.env.JWT_SECRET || (() => {
-  console.warn('Warning: JWT_SECRET is not set. Using development fallback secret.');
-  return 'dev-fallback-secret-change-in-prod';
-})();
+const JWT_SECRET = process.env.JWT_SECRET;
 
 
 export const authMiddleware = (req, res, next) => {
