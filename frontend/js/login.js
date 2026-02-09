@@ -1,6 +1,6 @@
 // Login page - email input functionality
 document.addEventListener('DOMContentLoaded', () => {
-    const emailForm = document.getElementById('emailForm');
+    const emailForm = document.getElementById('loginForm');
     const errorMessage = document.getElementById('errorMessage');
 
     emailForm.addEventListener('submit', async (e) => {

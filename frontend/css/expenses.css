@@ -1,0 +1,245 @@
+/* =========================
+   GLOBAL RESET & BASICS
+========================= */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: "Segoe UI", Roboto, Arial, sans-serif;
+  min-height: 100vh;
+  background: linear-gradient(135deg, #4e65d1 0%, #6b52c0 100%);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #ffffff;
+}
+.container {
+    background: rgba(255, 255, 255, 0.15);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    padding: 40px;
+    border-radius: 24px;
+    width: 90%;
+    max-width: 800px;
+    box-shadow: 0 20px 40px rgba(0,0,0,0.2);
+    text-align: center;
+}
+
+/* =========================
+   DASHBOARD LAYOUT
+========================= */
+.dashboard-wrapper {
+  width: 100%;
+  padding: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.dashboard-card {
+  width: 100%;
+  max-width: 700px;
+  background: rgba(255, 255, 255, 0.12);
+  backdrop-filter: blur(15px);
+  -webkit-backdrop-filter: blur(15px);
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  border-radius: 20px;
+  padding: 32px;
+  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.25);
+}
+
+/* =========================
+   HEADER
+========================= */
+.dashboard-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 24px;
+}
+
+.dashboard-header h1 {
+  font-size: 1.8rem;
+  font-weight: 700;
+}
+
+/* =========================
+   FORM
+========================= */
+.form-group {
+  margin-bottom: 18px;
+}
+
+.form-group label {
+  display: block;
+  font-size: 0.95rem;
+  margin-bottom: 6px;
+  opacity: 0.9;
+}
+
+.form-group input {
+  width: 100%;
+  padding: 12px 14px;
+  border: none;
+  border-radius: 8px;
+  font-size: 1rem;
+  outline: none;
+  transition: 0.25s ease;
+  background: rgba(255, 255, 255, 0.9);
+  color: #333;
+}
+
+.form-group input:focus {
+  box-shadow: 0 0 0 3px rgba(78, 101, 209, 0.4);
+}
+
+/* Reihen für Buttons + Label */
+.row {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+
+/* Optional-Text */
+.optional {
+  font-size: 0.85em;
+  opacity: 0.8;
+}
+
+/* =========================
+   BUTTONS
+========================= */
+.primary-btn {
+  width: 100%;
+  background: #5c4bd9;
+  border: none;
+  padding: 12px;
+  border-radius: 8px;
+  color: #fff;
+  font-size: 1rem;
+  cursor: pointer;
+  font-weight: 600;
+  transition: 0.3s ease;
+}
+
+.primary-btn:hover {
+  background: #4a3bb3;
+  transform: translateY(-2px);
+}
+
+.secondary-btn {
+  background: rgba(255, 255, 255, 0.15);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  padding: 8px 14px;
+  border-radius: 8px;
+  color: #fff;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: 0.25s ease;
+}
+
+.secondary-btn:hover {
+  background: rgba(255, 255, 255, 0.25);
+  transform: translateY(-1px);
+}
+
+/* =========================
+   MODAL (CATEGORY CHOOSER)
+========================= */
+.modal {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.55);
+  display: none;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+  z-index: 1000;
+}
+
+/* Falls dein JS das Modal sichtbar macht, z.B. per display:flex */
+.modal[aria-hidden="false"] {
+  display: flex;
+}
+
+.modal-content {
+  width: 100%;
+  max-width: 500px;
+  background: rgba(255, 255, 255, 0.95);
+  color: #333;
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.35);
+}
+
+/* Modal Header */
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px 20px;
+  border-bottom: 1px solid #ddd;
+}
+
+.modal-header h3 {
+  font-size: 1.2rem;
+  font-weight: 600;
+}
+
+/* Close Button */
+.btn-close {
+  background: transparent;
+  border: none;
+  font-size: 1.5rem;
+  cursor: pointer;
+  line-height: 1;
+}
+
+/* Modal Body */
+.modal-body {
+  padding: 20px;
+}
+
+/* Category Create */
+.category-create {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 16px;
+}
+
+.category-create input {
+  flex: 1;
+  padding: 10px 12px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  font-size: 0.95rem;
+}
+
+/* Category List */
+.category-list {
+  max-height: 250px;
+  overflow-y: auto;
+  font-size: 0.95rem;
+}
+
+/* Simple list items if you render them as buttons/divs */
+.category-list button,
+.category-list div {
+  width: 100%;
+  text-align: left;
+  padding: 8px 10px;
+  border-radius: 6px;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+.category-list button:hover,
+.category-list div:hover {
+  background: rgba(0, 0, 0, 0.05);
+}

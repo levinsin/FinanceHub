@@ -1,0 +1,85 @@
+<!doctype html>
+<html lang="de">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <link rel="icon" href="\images\Icon_FinanceHub.png" type="image/png">
+  <title>Expenses</title>
+  <link rel="stylesheet" href="/css/expenses.css">
+</head>
+<body>
+  <div class="container">
+    <main class="dashboard">
+      <div style="display:flex;align-items:center;gap:12px;">
+        <h1 style="margin:0">Create Expenses</h1>
+        <button type="button" id="returnBtn" class="secondary-btn">Return</button>
+      </div>
+
+      <section id="create" class="auth-form">
+        <form id="expenseForm">
+          <div class="form-group">
+            <label>Title</label>
+            <input name="title" required>
+          </div>
+          <div class="form-group">
+            <label>Amount</label>
+            <input name="amount" type="number" step="1" required>
+          </div>
+          <div class="form-group">
+            <label>Date</label>
+            <input name="date" type="date">
+          </div>
+
+          <div class="form-group">
+            <label>Category</label>
+            <input type="hidden" name="category" id="categoryInput">
+            <div style="display:flex;gap:8px;align-items:center;">
+              <span id="categoryLabel"> </span>
+              <button type="button" id="chooseCategoryBtn" class="secondary-btn">Choose</button>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <div style="display:flex;gap:8px;">
+              <button type="button" id="btn-variable" class="secondary-btn">Variable</button>
+              <button type="button" id="btn-fixed" class="secondary-btn">Fixed</button>
+            </div>
+            <input type="hidden" name="costType" id="costTypeInput">
+          </div>
+          <div class="form-group">
+            <label>Notes <span id="notesOptional" style="font-size:0.85em;color:#666;">(optional)</span></label>
+            <input name="notes">
+          </div>
+
+          <button type="submit" class="primary-btn">Create</button>
+        </form>
+      </section>
+
+      <!-- <section id="list">
+        <h2>Expenses</h2>
+        <div id="expenses"></div>
+      </section> -->
+    </main>
+  </div>
+
+  <!-- Category chooser modal -->
+  <div id="categoryModal" class="modal" aria-hidden="true">
+    <div class="modal-content">
+      <header class="modal-header">
+        <h3>Choose Category</h3>
+        <button id="closeCategoryModal" class="btn-close">×</button>
+      </header>
+      <div class="modal-body">
+        <div class="category-create">
+          <input id="newCategoryName" placeholder="Create new category" aria-label="New category name">
+          <button id="createCategoryBtn" class="primary-btn">Create</button>
+        </div>
+
+        <div id="categoryList" class="category-list">Loading categories…</div>
+      </div>
+    </div>
+  </div>
+
+  <script type="module" src="/js/expenses.js"></script>
+</body>
+</html>

@@ -1,25 +1,26 @@
 <!DOCTYPE html>
-<html lang="en">
-<link rel="icon" href="\images\Icon_FinanceHub.png" type="image/png">
+<html lang="de">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login - FinanceHub</title>
-    <link rel="stylesheet" href="/css/index.css">
+    <title>Login – FinanceHub</title>
+    <link rel="icon" href="/images/Icon_FinanceHub.png" type="image/png">
+    <link rel="stylesheet" href="/css/login.css">
 </head>
 <body>
-    <div class="container">
-        <div class="auth-form">
-            <h2>Login to FinanceHub</h2>
-            <form id="emailForm">
-                <div class="form-group">
-                    <label for="email">Email</label>
-                    <input type="email" id="email" name="email" required placeholder="Enter your email">
+    <div class="login-wrapper">
+        <div class="login-card">
+            <h1 class="login-title">Willkommen bei FinanceHub</h1>
+            <p class="login-subtitle">Bitte melde dich an, um fortzufahren</p>
+            <form id="loginForm" novalidate>
+                <div class="input-group">
+                    <label for="email">E-Mail Adresse</label>
+                    <input type="email" id="email" name="email" placeholder="name@beispiel.de" required>
                 </div>
-                <button type="submit" class="primary-btn">Continue</button>
+                <button type="submit" class="btn-primary">Weiter</button>
                 <div id="errorMessage" class="error-message"></div>
             </form>
-            <a href="/html/index.html" class="back-link">← Back to Home</a>
+            <a href="/html/index.html" class="link-back">← Zurück zur Startseite</a>
         </div>
     </div>
     <script src="/js/login.js"></script>

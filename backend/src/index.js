@@ -1,14 +1,15 @@
 import dotenv from "dotenv";
+import 'dotenv/config';
+// dotenv.config({
+//     path: './.env'
+// });
+dotenv.config({ path: new URL("../../.env", import.meta.url).pathname });
 import connectDB from "./config/database.js";
 import app from "./app.js";
 
-dotenv.config({
-    path: './.env'
-});
-
-
 const startServer = async () => {
   try {
+            console.log("JWT_SECRET=", process.env.JWT_SECRET);
            console.log("MONGODB_URI:", process.env.MONGODB_URI);
            await connectDB();
 

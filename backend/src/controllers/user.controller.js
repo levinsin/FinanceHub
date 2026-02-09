@@ -1,4 +1,7 @@
 import { User } from "../models/user.model.js";
+import jwt from 'jsonwebtoken';
+
+const JWT_SECRET = process.env.JWT_SECRET || 'your-secret-key-change-in-production';
 
 const registerUser = async (req, res) => {
 try {
@@ -33,13 +36,10 @@ try {
         });
     }
     
-    // check if user exists already (by email or lastname)
-    const existing = await User.findOne({ $or: [{ email }, { lastname }] });
-    if (existing) {
-        if (existing.email === email) {
-            return res.status(400).json({ message: "Email already in use" });
-        }
-        return res.status(400).json({ message: "Lastname already taken" });
+    // check if user exists already (by email)
+    const existingByEmail = await User.findOne({ email });
+    if (existingByEmail) {
+        return res.status(400).json({ message: "Email already in use" });
     }
 
     // parse/validate birthday if provided
@@ -66,17 +66,24 @@ try {
     });
 
 } catch (error) {
-    // handle duplicate key (e.g. unique index) and validation errors
+    // detailed logging for duplicate-key issues
+    console.error('registerUser error:', {
+        message: error.message,
+        code: error.code,
+        keyValue: error.keyValue,
+        keyPattern: error.keyPattern,
+        stack: error.stack
+    });
+
     if (error && error.code === 11000) {
-        const key = Object.keys(error.keyValue || {})[0] || "field";
-        return res.status(400).json({ message: `${key} already exists` });
+        const key = Object.keys(error.keyValue || {})[0] || Object.keys(error.keyPattern || {})[0] || 'field';
+        return res.status(400).json({ message: `${key} already exists`, detail: error.keyValue || error.keyPattern });
     }
     if (error && error.name === "ValidationError") {
         const errors = Object.values(error.errors || {}).map(e => e.message);
         return res.status(400).json({ message: "Validation error", errors });
     }
 
-    console.error("registerUser error:", error);
     res.status(500).json({ message: "Internal server error" });
 }
 };
@@ -103,8 +110,16 @@ const loginUser = async (req, res) => {
 
         })
 
+        // Generate JWT token
+        const token = jwt.sign(
+            { userId: user._id, email: user.email },
+            JWT_SECRET,
+            { expiresIn: '7d' }
+        );
+
         res.status(200).json({
             message: "User Logged in",
+            token,
             user: {
                 id: user._id,
                 email: user.email,
@@ -112,6 +127,7 @@ const loginUser = async (req, res) => {
                 lastname: user.lastname
             }
         })
+        console.log('token:', token)
     } catch (error) {
         res.status(500).json({
             message: "Internal Server Error"

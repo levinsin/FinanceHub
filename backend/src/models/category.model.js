@@ -11,11 +11,7 @@ const categorySchema = new Schema(
             type: mongoose.Schema.Types.ObjectId,
             ref: 'User',
             required: true
-        },
-        isGlobal: {
-            type: Boolean,
-            default: false
-        },
+        }
     },
     
     {

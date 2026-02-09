@@ -109,6 +109,7 @@ body {
     flex: 1;
     display: flex;
     justify-content: flex-end;
+
 }
 
 .main-illustration {
@@ -116,6 +117,8 @@ body {
     height: auto;
     border-radius: 30px;
     box-shadow: 0 30px 60px rgba(0,0,0,0.3);
+    transform: perspective(800px) rotateY(-12deg);
 }
+
 
 

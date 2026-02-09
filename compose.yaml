@@ -1,0 +1,28 @@
+services:
+  node-app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "3000:3000"
+    environment:
+      - PORT=3000
+    env_file:
+      - .env
+    environment:
+      - NODE_OPTIONS=--dns-result-order=ipv4first
+
+
+  nginx:
+    image: nginx:latest
+    container_name: nginx-server
+    ports:
+      - "80:80"
+    volumes:
+      - ./etc/nginx/nginx.conf:/etc/nginx/nginx.conf:ro
+      - ./etc/nginx/conf.d/proxy.conf:/etc/nginx/conf.d/proxy.conf:ro
+      - ./etc/nginx/sites-available/finance-hub.local:/etc/nginx/sites-available/finance-hub.local:ro
+      - ./etc/nginx/sites-available:/etc/nginx/sites-enabled:ro
+      - ./frontend:/usr/share/nginx/html:ro
+    depends_on:
+      - node-app

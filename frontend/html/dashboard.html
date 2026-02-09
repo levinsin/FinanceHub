@@ -12,7 +12,7 @@
     <header class="topbar">
         <div class="nav-left">
             <img src="\images\Icon_FinanceHub.png" alt="Finanzhub Logo" width = 32>
-            <button class="nav-btn-ghost">Create new expense</button>
+            <button id="createExpenseBtn" class="nav-btn-ghost">Create new expense</button>
             <button class="nav-btn-ghost">Analyze data</button>
             <button class="nav-btn-ghost">Test</button>
         </div>
@@ -22,7 +22,7 @@
         </div>
     </header>
 
-    <main class="main-area">
+    <main class="mainArea">
         <div id="hero" class="hero">
             <h1 id="heroTitle">Welcome to your dashboard</h1>
         </div>
@@ -33,38 +33,46 @@
                 <!-- placeholder for dashboard controls -->
             </div>
         </section>
-    </main>
-    <script src="/js/dashboard.js"></script>
+        <div class="settingsCard" id = "settingsCard">
+    <h1>Settings</h1>
+    <div class="settings-row">
+        <label for="currency">Currency</label>
+        <select id="currency" class="settings-select">
+            <option value="eur">EUR  Euro</option>
+            <option value="usd">USD  Dollar</option>
+            <option value="gbp">GBP  Pfund</option>
+        </select>
 
-    <div class="settings-card">
-            <h1>Settings</h1>
-            <div class="settings-row">
-            <label for="currency">Currency</label>
-            <select id="currency" class="settings-select">
-                <option value="eur">EUR  Euro</option>
-                <option value="usd">USD  Dollar</option>
-                <option value="gbp">GBP  Pfund</option>
-            </select>
         <button id="openEmailButton" class="settings-btn">Change Email</button>
-        <div id="first_extraArea" class="extra-area">
+        <div id="firstExtraArea" class="extra-area">
             <p>Neue Email:</p>
-            <input type="text" placeholder="Name eingeben">
+            <input type="text" placeholder="Email eingeben">
             <p>Email bestätigen:</p>
-            <input type="text" placeholder="Name eingeben">
+            <input type="text" placeholder="Email bestätigen">
             <button class="secondary-btn">Speichern</button>
         </div>
+
         <button id="openPwdButton" class="settings-btn">Change Password</button>
-        <div id="second_extraArea" class="extra-area">
+        <div id="secondExtraArea" class="extra-area">
             <p>Neues Password:</p>
-            <input type="text" placeholder="Name eingeben">
+            <input type="text" placeholder="Password eingeben">
             <p>Password wiederholen:</p>
-            <input type="text" placeholder="Name eingeben">
-            <button class="secondary-btn">Speichern</button>
-        </div> 
+            <input type="text" placeholder="Password wiederholen">
+            <button id="saveBtn" class="secondary-btn">Speichern</button>
+        </div>
+    </div>
 
-        </div> 
+    <button type="button" id="returnToMain" class="primary-btn">Save settings</button>
+</div>
 
-        <button type = "button" id="returnToMain" class="primary-btn">Save settings</button>
-    </div> </div> <script src="/js/dashboard.js"></script>
+</main>
+
+<!-- Settings Card -->
+
+
+</body>
+
+<!-- JavaScript -->
+<script src="/js/dashboard.js"></script>
 </body>
 </html>

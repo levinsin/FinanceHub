@@ -1,0 +1,46 @@
+/* Helper styles for categories/expenses pages and modal (keeps visuals consistent with site) */
+.form-group label { display:block; color:#333; font-weight:500; margin-bottom:8px; }
+.form-group input { width:100%; padding:10px 12px; border:1px solid #e5e7eb; border-radius:6px; font-size:14px; }
+
+form.auth-form { background:#fff; padding:20px; border-radius:10px; box-shadow:0 8px 30px rgba(0,0,0,0.08); max-width:640px; margin-bottom:18px; }
+
+/* Use site button styles where appropriate; provide small helper class fallbacks */
+.secondary-btn { padding:8px 12px; border-radius:6px; border:none; background:#f5f5f5; color:#333; cursor:pointer; }
+.secondary-btn:hover { background:#e9e9ea; }
+
+#expenses ul, #categories ul { list-style:none; padding-left:0; }
+#expenses li, #categories li { background:#fff; margin:8px 0; padding:12px; border-radius:8px; display:flex; align-items:center; justify-content:space-between; }
+
+.del-cat { background:#ef4444; color:#fff; border-radius:6px; padding:6px 8px; }
+
+/* Modal */
+.modal { display:none; position:fixed; inset:0; background: rgba(0,0,0,0.35); }
+.modal-content { background:#fff; width:clamp(320px,80%,720px); border-radius:8px; box-shadow:0 12px 40px rgba(0,0,0,0.18); overflow:hidden; position:relative; }
+.modal-header { display:flex; align-items:center; justify-content:space-between; padding:12px 16px; border-bottom:1px solid #f3f4f6; }
+.modal-body { padding:12px 16px; }
+.modal-body ul { max-height:240px; overflow:auto; }
+.modal-body li { display:flex; align-items:center; justify-content:space-between; gap:12px; }
+
+/* Category chooser specifics */
+.modal-content { width: clamp(320px, 420px, 520px); }
+.modal-content.floating { position:absolute; box-shadow:0 18px 48px rgba(0,0,0,0.25); }
+
+/* nicer close button */
+.btn-close { background:#f3f4f6; border-radius:50%; width:36px; height:36px; display:inline-flex; align-items:center; justify-content:center; border:none; cursor:pointer; font-size:18px; line-height:1; }
+.btn-close:hover { background:#e6e9ef; }
+
+/* Category create proportions: input 4/5, button 1/5 */
+.category-create { display:flex; gap:8px; align-items:center; margin-bottom:12px; }
+.category-create input { flex:4; padding:10px 12px; border-radius:8px; border:1px solid #e5e7eb; }
+.category-create .primary-btn { flex:1; padding:10px 12px; border-radius:8px; }
+.category-create { display:flex; gap:8px; align-items:center; margin-bottom:12px; }
+.category-create input { flex:1; padding:10px 12px; border-radius:8px; border:1px solid #e5e7eb; }
+.category-create .primary-btn { padding:10px 12px; border-radius:8px; }
+.category-list { max-height:260px; overflow:auto; border-radius:8px; padding:6px; }
+.category-list ul { list-style:none; padding:0; margin:0; }
+.category-list li { padding:10px 12px; display:flex; align-items:center; justify-content:space-between; gap:12px; border-radius:8px; border:1px solid transparent; cursor:pointer; }
+.category-list li .label { flex:1; }
+.category-list li:hover { background:#fbfbfe; }
+.category-list li:hover { background:#fbfbfe; }
+
+@media (max-width:480px){ form.auth-form{padding:14px;} }

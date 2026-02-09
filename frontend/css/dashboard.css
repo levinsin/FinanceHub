@@ -89,12 +89,14 @@ body {
 }
 
 /* --- MAIN CONTENT BEREICH --- */
-.main-area {
+.mainArea {
+    position: relative;
     padding-top: 120px; /* Platz für die fixierte Topbar */
     display: flex;
     flex-direction: column;
     align-items: center;
     padding-bottom: 50px;
+    margin: auto;
 }
 
 .hero {
@@ -154,27 +156,25 @@ body {
     }
 }
 
-.settings-card {
+.settingsCard {
     background: white;
-    padding: 40px;
-    border-radius: 10px;
+    padding: 60px;
+    border-radius: 40px;
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
-    max-width: 400px;
-    width: 100%;
+    width: 70%;
     display: flex;
     flex-direction: column;
     gap: 20px;
     display: none;
+    position: absolute;
+    z-index: 10;
 }
-.settings-card.visible{
-    display: visible;
-}
-
-.settings-card.hidden{
-    display: none;
+.settingsCard.visible{
+    display: flex;
 }
 
-.settings-card h1 {
+
+.settingsCard h1 {
     text-align: center;
     color: #333;
     margin-bottom: 10px;
@@ -220,7 +220,6 @@ body {
     border: 1px solid #667eea;
     border-radius: 6px;
     font-size: 1rem;
-    display:none;
     margin-top: 10px;
 }
 .extra-area {

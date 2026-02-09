@@ -12,7 +12,13 @@ document.addEventListener('DOMContentLoaded', () => {
     const heroTitle = document.getElementById('heroTitle');
     const dashboardContent = document.getElementById('dashboardContent');
     const openSettingsBtn = document.getElementById("UserBtn");
-    const settingsArea = document.getElementById("settings-card");
+    const saveSettingsBtn = document.getElementById("returnToMain");
+    const settingsArea = document.getElementById("settingsCard");
+    const createExpenseBtn = document.getElementById('createExpenseBtn');
+    const openEmailBtn = document.getElementById("openEmailButton");
+    const emailArea = document.getElementById("firstExtraArea");
+    const openPasswordBtn = document.getElementById("openPwdButton"); 
+    const passwordArea = document.getElementById("secondExtraArea");
     // Check if user is logged in
     const userStr = sessionStorage.getItem('user');
     
@@ -39,18 +45,11 @@ document.addEventListener('DOMContentLoaded', () => {
             window.location.href = '/html/index.html';
         });
     }
-
-    /*
-    // user settings
-    if (UserBtn) {
-        UserBtn.addEventListener('click', () => {
-            sessionStorage.removeItem('user');
-            window.location.href = '/html/settings.html';
+    if (createExpenseBtn) {
+        createExpenseBtn.addEventListener('click', () => {
+            window.location.href = '/html/expenses.html';
         });
     }
-        */
-
-
     // Trigger hero animation: shrink and move to top
     if (hero) {
         // small delay so the page feels intentional
@@ -70,6 +69,30 @@ document.addEventListener('DOMContentLoaded', () => {
         hero.addEventListener('transitionend', onTransitionEnd);
     }
      openSettingsBtn.addEventListener("click", () => {
-        settingsArea.classList.add("visible");
+        settingsArea.classList.toggle("visible");
      });
+     saveSettingsBtn.addEventListener("click", () => {
+        settingsArea.classList.toggle("visible");
+     });
+
+    // 3. Email-Bereich umschalten
+    if (openEmailBtn && emailArea && passwordArea) {
+        openEmailBtn.addEventListener("click", () => {
+            const isOpen = emailArea.classList.contains("visible");
+            emailArea.classList.remove("visible");
+            passwordArea.classList.remove("visible");
+            if (!isOpen) emailArea.classList.add("visible");
+        });
+    }
+
+    // 4. Passwort-Bereich umschalten (Funktioniert jetzt, da ID korrekt)
+    if (openPasswordBtn && emailArea && passwordArea) {
+        openPasswordBtn.addEventListener("click", () => {
+            const isOpen = passwordArea.classList.contains("visible");
+            emailArea.classList.remove("visible");
+            passwordArea.classList.remove("visible");
+            if (!isOpen) passwordArea.classList.add("visible");
+        });
+    }
 });
+

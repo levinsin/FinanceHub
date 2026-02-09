@@ -42,6 +42,7 @@ document.addEventListener('DOMContentLoaded', () => {
             if (response.ok) {
                 // Login successful
                 sessionStorage.setItem('user', JSON.stringify(data.user));
+                sessionStorage.setItem('token', data.token);
                 sessionStorage.removeItem('loginEmail');
                 window.location.href = '/html/dashboard.html';
             } else {
