@@ -1,5 +1,5 @@
 FROM node:20
-LABEL authors="levindocks"
+# LABEL authors="levindocks"
 
 WORKDIR /usr/src/app
 

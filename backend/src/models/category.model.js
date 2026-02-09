@@ -1,6 +1,6 @@
-import mongoose, { Schema} from "mongoose";
+import mongoose from "mongoose";
 
-const categorySchema = new Schema(
+const categorySchema = new mongoose.Schema(
     {
         name: {
             type: String,
@@ -11,11 +11,7 @@ const categorySchema = new Schema(
             type: mongoose.Schema.Types.ObjectId,
             ref: 'User',
             required: true
-        },
-        isGlobal: {
-            type: Boolean,
-            default: false
-        },
+        }
     },
     
     {

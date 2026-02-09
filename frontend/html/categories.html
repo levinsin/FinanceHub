@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="de">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Categories</title>
+  <link rel="stylesheet" href="/css/index.css">
+  <link rel="stylesheet" href="/css/categories.css">
+</head>
+<body>
+  <div class="container">
+    <main class="dashboard">
+      <h1>Categories</h1>
+
+      <section id="create" class="auth-form">
+        <h2>Create Category</h2>
+        <form id="categoryForm">
+          <div class="form-group">
+            <label>Name</label>
+            <input name="name" required>
+          </div>
+          <button type="submit" class="primary-btn">Create</button>
+        </form>
+      </section>
+
+      <section id="list">
+        <h2>Existing Categories</h2>
+        <div id="categories"></div>
+      </section>
+    </main>
+  </div>
+
+  <script type="module" src="/js/categories.js"></script>
+</body>
+</html>

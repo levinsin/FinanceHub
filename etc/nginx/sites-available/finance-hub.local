@@ -5,15 +5,14 @@ server {
     #error_log /var/log/nginx/$server_name.error.log;
     root /usr/share/nginx/html;
 
-
-    location / {
-        index html/index.html;
-        try_files $uri $uri/ /html/index.html;
-
+    # API-Proxy
+    location /api/ {
+        proxy_pass http://node-app:3000;
+        include /etc/nginx/conf.d/proxy.conf;
     }
 
-    location /api/ {
-        proxy_pass http://node-app:4000;
-        include /etc/nginx/conf.d/proxy.conf;
+    # Hauptseite
+    location = / {
+        try_files /html/index.html =404;
     }
 }
