@@ -3,57 +3,99 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Expenses</title>
+  <!-- <title>Expenses</title> -->
   <link rel="stylesheet" href="/css/index.css">
-  <link rel="stylesheet" href="/css/test_helpers.css">
+  <link rel="stylesheet" href="/css/expenses.css">
 </head>
 <body>
-  <div class="container">
+  <div style="position: absolute; top: 5px; left: 10px; z-index: 100;">
+    <button type="button" id="returnBtn" class="secondary-btn">Return</button>
+  </div>
+  <div class="container wide">
     <main class="dashboard">
-      <div style="display:flex;align-items:center;gap:12px;">
-        <h1 style="margin:0">Create Expenses</h1>
-        <button type="button" id="returnBtn" class="secondary-btn">Return</button>
+
+      <div class="expenses-layout">
+        <!-- Expense Section (Left/Main) -->
+        <div class="expense-main">
+          <section id="create" class="auth-form">
+            <h2>Create Expense</h2>
+            <form id="expenseForm">
+              <div class="form-group">
+                <label>Title</label>
+                <input name="title" required>
+              </div>
+              <div class="form-group">
+                <label>Amount</label>
+                <input name="amount" type="number" step="1" required>
+              </div>
+              <div class="form-group">
+                <label>Date</label>
+                <input name="date" type="date">
+              </div>
+
+              <div class="form-group">
+                <label>Category</label>
+                <input type="hidden" name="category" id="categoryInput">
+                <button type="button" id="chooseCategoryBtn" class="secondary-btn">Choose</button>
+                <div id="categoryLabel" class="category-placeholder">No category selected</div>
+              </div>
+
+              <div class="form-group">
+                <div style="display:flex;gap:8px;">
+                  <button type="button" id="btn-variable" class="secondary-btn">Variable</button>
+                  <button type="button" id="btn-fixed" class="secondary-btn">Fixed</button>
+                </div>
+                <input type="hidden" name="costType" id="costTypeInput">
+              </div>
+              <div class="form-group">
+                <label>Notes <span id="notesOptional" style="font-size:0.85em;color:#666;">(optional)</span></label>
+                <input name="notes">
+              </div>
+
+              <button type="submit" class="primary-btn">Create</button>
+            </form>
+          </section>
+        </div>
+
+        <!-- Side Sections (Right) -->
+        <div class="side-sections">
+          <!-- Income Section -->
+          <section class="auth-form">
+            <h2>Set Income</h2>
+            <form id="incomeForm">
+              <div class="form-group">
+                <label>Source</label>
+                <input name="source" required>
+              </div>
+              <div class="form-group">
+                <label>Amount</label>
+                <input name="amount" type="number" step="1" required>
+              </div>
+              <button type="submit" class="primary-btn">Save Income</button>
+            </form>
+            <div id="incomeList" style="margin-top: 15px;"></div>
+          </section>
+
+          <!-- Budget Section -->
+          <section class="auth-form">
+            <h2>Set Budget</h2>
+            <form id="budgetForm">
+              <div class="form-group">
+                <label>Category</label>
+                <input type="hidden" name="category" id="budgetCategoryInput">
+                <button type="button" id="chooseBudgetCategoryBtn" class="secondary-btn">Choose</button>
+                <div id="budgetCategoryLabel" class="category-placeholder">No category selected</div>
+              </div>
+              <div class="form-group">
+                <label>Amount</label>
+                <input name="amount" type="number" step="1" required>
+              </div>
+              <button type="submit" class="primary-btn">Save Budget</button>
+            </form>
+            <div id="budgetList" style="margin-top: 15px;"></div>
+          </section>
+        </div>
       </div>
-
-      <section id="create" class="auth-form">
-        <form id="expenseForm">
-          <div class="form-group">
-            <label>Title</label>
-            <input name="title" required>
-          </div>
-          <div class="form-group">
-            <label>Amount</label>
-            <input name="amount" type="number" step="1" required>
-          </div>
-          <div class="form-group">
-            <label>Date</label>
-            <input name="date" type="date">
-          </div>
-
-          <div class="form-group">
-            <label>Category</label>
-            <input type="hidden" name="category" id="categoryInput">
-            <div style="display:flex;gap:8px;align-items:center;">
-              <span id="categoryLabel"> </span>
-              <button type="button" id="chooseCategoryBtn" class="secondary-btn">Choose</button>
-            </div>
-          </div>
-
-          <div class="form-group">
-            <div style="display:flex;gap:8px;">
-              <button type="button" id="btn-variable" class="secondary-btn">Variable</button>
-              <button type="button" id="btn-fixed" class="secondary-btn">Fixed</button>
-            </div>
-            <input type="hidden" name="costType" id="costTypeInput">
-          </div>
-          <div class="form-group">
-            <label>Notes <span id="notesOptional" style="font-size:0.85em;color:#666;">(optional)</span></label>
-            <input name="notes">
-          </div>
-
-          <button type="submit" class="primary-btn">Create</button>
-        </form>
-      </section>
 
       <!-- <section id="list">
         <h2>Expenses</h2>
@@ -79,6 +121,27 @@
       </div>
     </div>
   </div>
+
+  <!-- Templates -->
+  <template id="incomeItemTemplate">
+    <div class="income-item">
+      <strong class="income-source"></strong>
+      <div>
+        <span class="income-amount"></span>
+        <button class="delete-btn income-delete">Delete</button>
+      </div>
+    </div>
+  </template>
+
+  <template id="budgetItemTemplate">
+    <div class="budget-item">
+      <strong class="budget-category"></strong>
+      <div>
+        <span class="budget-amount"></span>
+        <button class="delete-btn budget-delete">Delete</button>
+      </div>
+    </div>
+  </template>
 
   <script type="module" src="/js/expenses.js"></script>
 </body>

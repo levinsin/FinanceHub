@@ -3,19 +3,20 @@ import Budget from "../models/budget.model.js";
 
 export const createBudget = async (req, res) => {
     try {
-        const userId = req.body.userId;
+        const userId = req.user.id;
         if (!userId) return res.status(401).json({ message: 'Authentication required' });
         const { amount, category } = req.body;
         if (typeof amount === 'undefined' || typeof category === 'undefined') {
             return res.status(400).json({ message: 'amount and category are required' });
         }
 
-        const budget = new Budget({
-            userId,
-            amount,
-            category: category.trim()
-        });
-        await budget.save();
+        // Use findOneAndUpdate with upsert to update existing or create new
+        const budget = await Budget.findOneAndUpdate(
+            { userId, category },
+            { amount },
+            { new: true, upsert: true, runValidators: true }
+        );
+        
         return res.status(201).json(budget);      
     } catch (err) {
         console.error('createBudget error:', err);

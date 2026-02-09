@@ -5,6 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dashboard - FinanceHub</title>
     <link rel="stylesheet" href="/css/index.css">
+    <link rel="stylesheet" href="/css/dashboard.css">
+    <link rel="stylesheet" href="/css/settings.css">
 </head>
 <body>
     <header class="topbar">
@@ -13,23 +15,80 @@
             <button class="nav-btn">Analyze data</button>
             <button class="nav-btn">Test</button>
         </div>
+        <h1 class="navbar-title">Your Finance Dashboard</h1>
         <div class="nav-right">
+            <button id="settingsBtn" class="nav-btn">Settings</button>
             <button id="logoutBtn" class="secondary-btn">Logout</button>
         </div>
     </header>
 
     <main class="main-area">
-        <div id="hero" class="hero">
-            <h1 id="heroTitle">Welcome to your dashboard</h1>
-        </div>
+        <section class="container-dashboard dashboard" id="dashboardContent">
+            <div class="dashboard-content-wrapper">
+                <!-- Left Column: Overview + Category Sidebar -->
+                <div class="right-column">
+                    <!-- Financial Overview -->
+                    <div class="overview-cards">
+                        <div class="stat-card">
+                            <h3>Income</h3>
+                            <p class="stat-value" id="incomeValue">-</p>
+                        </div>
+                        <div class="stat-card">
+                            <h3>Expenses</h3>
+                            <p class="stat-value" id="expensesValue">-</p>
+                        </div>
+                        <div class="stat-card">
+                            <h3>Savings</h3>
+                            <p class="stat-value" id="savingsValue">-</p>
+                        </div>
+                        <div class="stat-card stat-card-highlight">
+                            <h3>Available</h3>
+                            <p class="stat-value" id="availableValue">-</p>
+                        </div>
+                    </div>
 
-        <section class="container dashboard" id="dashboardContent" aria-hidden="true">
-            <p id="welcomeMessage">You have successfully logged in.</p>
-            <div class="dashboard-actions">
-                <!-- placeholder for dashboard controls -->
+                    <!-- Category Filter Sidebar -->
+                    <div class="chart-section">
+                        <h2>Filter Categories</h2>
+                        <div id="categorySidebar"></div>
+                    </div>
+                </div>
+
+                <!-- Right Column: Pie Chart -->
+                <div class="left-column">
+                    <div class="chart-section">
+                        <h2>Spending by Category</h2>
+                        <div class="chart-container">
+                            <canvas id="categoryPieChart" width="400" height="400"></canvas>
+                        </div>
+                        <div id="categoryLegend" class="category-legend"></div>
+                    </div>
+                </div>
             </div>
         </section>
     </main>
+
+    <div id="settingsModal" class="modal" aria-hidden="true">
+        <div class="modal-content">
+            <header class="modal-header">
+                <h3>Settings</h3>
+                <button id="closeSettingsModal" class="btn-close">×</button>
+            </header>
+            <div class="modal-body">
+                <div class="select-currency">
+                    <label for="currencySelect">Preferred Currency:</label>
+                    <select name="currency" id="currencySelect">
+                        <option value="EUR">Euro (EUR)</option>
+                        <option value="USD">US Dollar (USD)</option>
+                        <option value="GBP">British Pound (GBP)</option>
+                    </select>
+                </div>
+            </div>
+            <footer class="modal-footer">
+                <button id="saveSettingsBtn" class="primary-btn">Save Settings</button>
+            </footer>
+        </div>
+    </div>
     <script src="/js/dashboard.js"></script>
 </body>
 </html>

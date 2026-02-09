@@ -5,7 +5,6 @@ const budgetSchema = new mongoose.Schema(
         userId: {
             type: mongoose.Schema.Types.ObjectId,
             required: true,
-            unique: true,
             ref: 'User'
         },
         amount: {
@@ -26,6 +25,6 @@ const budgetSchema = new mongoose.Schema(
 
 );
 
-budgetSchema.index({ userId: 1, category: 1 }, { unique: true });
+budgetSchema.index({ userId: 1, category: 1 });
 
 export default mongoose.model('Budget', budgetSchema);

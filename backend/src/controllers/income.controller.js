@@ -1,8 +1,9 @@
 import Income from "../models/income.model.js";
 
+
 export const createIncome = async (req, res) => {
     try {
-        const userId = req.body.userId;
+        const userId = req.user.id;
         if (!userId) return res.status(401).json({ message: 'Authentication required' });
         const { amount, source } = req.body;
         if (typeof amount === 'undefined' || typeof source === 'undefined') {

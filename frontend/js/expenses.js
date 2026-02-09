@@ -1,243 +1,306 @@
-import { listCategories, createCategory as apiCreateCategory, deleteCategory as apiDeleteCategory } from './api/categoryApi.js';
-import { listExpenses as apiListExpenses, createExpense as apiCreateExpense, deleteExpense as apiDeleteExpense } from './api/expenseApi.js';
+// ========== API FUNCTIONS ==========
+const API_BASE = `${location.origin}/api/v1`;
 
+async function apiRequest(path, method = 'GET', body = null) {
+  const token = sessionStorage.getItem('token')
+  if (!token) throw new Error('Not logged in');
+
+  const options = {
+    method,
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${token}`
+    }
+  };
+  
+  if (body) options.body = JSON.stringify(body);
+
+  const res = await fetch(API_BASE + path, options);
+  if (!res.ok) {
+    const error = await res.json().catch(() => ({}));
+    throw new Error(error.message || 'Request failed');
+  }
+  return res.json().catch(() => null);
+}
+
+// ========== ELEMENTS ==========
 const form = document.getElementById('expenseForm');
-// const listEl = document.getElementById('expenses');
+const incomeForm = document.getElementById('incomeForm');
+const budgetForm = document.getElementById('budgetForm');
 const chooseCategoryBtn = document.getElementById('chooseCategoryBtn');
+const chooseBudgetCategoryBtn = document.getElementById('chooseBudgetCategoryBtn');
 const categoryModal = document.getElementById('categoryModal');
 const closeCategoryModal = document.getElementById('closeCategoryModal');
 const categoryList = document.getElementById('categoryList');
 const categoryInput = document.getElementById('categoryInput');
 const categoryLabel = document.getElementById('categoryLabel');
+const budgetCategoryInput = document.getElementById('budgetCategoryInput');
+const budgetCategoryLabel = document.getElementById('budgetCategoryLabel');
 const newCategoryNameInput = document.getElementById('newCategoryName');
 const createCategoryBtn = document.getElementById('createCategoryBtn');
 const btnVariable = document.getElementById('btn-variable');
 const btnFixed = document.getElementById('btn-fixed');
 const costTypeInput = document.getElementById('costTypeInput');
 
-// async function loadExpenses() {
-//   listEl.innerHTML = 'Loading...';
-//   try {
-//     const data = await apiListExpenses();
-//     renderList(data || []);
-//   } catch (err) {
-//     listEl.innerHTML = err.message || 'Error loading expenses';
-//     console.error(err);
-//   }
-// }
+let isBudgetCategorySelection = false;
 
-// function renderList(items) {
-//   if (!items.length) {
-//     listEl.innerHTML = '<p>No expenses yet.</p>';
-//     return;
-//   }
-//   const ul = document.createElement('ul');
-//   items.forEach(it => {
-//     const li = document.createElement('li');
-//     li.textContent = `${it.title} — ${it.amount} € — ${new Date(it.date).toLocaleDateString()} `;
-
-//     const del = document.createElement('button');
-//     del.textContent = 'Delete';
-//     del.onclick = () => deleteExpense(it._id);
-//     li.appendChild(del);
-
-//     ul.appendChild(li);
-//   });
-//   listEl.innerHTML = '';
-//   listEl.appendChild(ul);
-// }
-
-async function createExpense(payload) {
-  try {
-    await apiCreateExpense(payload);
-    //await loadExpenses();
-  } catch (err) {
-    alert('Create failed: ' + err.message);
-  }
-}
-
-// async function deleteExpense(id) {
-//   if (!confirm('Delete this expense?')) return;
-//   try {
-//     await apiDeleteExpense(id);
-//     await loadExpenses();
-//   } catch (err) {
-//     alert(err.message);
-//   }
-// }
-
-// Category modal
+// ========== CATEGORY MODAL ==========
 function openCategoryModal() {
-  // show overlay
   categoryModal.style.display = 'block';
   categoryModal.setAttribute('aria-hidden','false');
   const content = categoryModal.querySelector('.modal-content');
-  // center modal in viewport
   content.classList.remove('floating');
-  content.style.position = 'fixed';
-  content.style.top = '50%';
-  content.style.left = '50%';
-  content.style.transform = 'translate(-50%, -50%)';
-  // clear any previously set absolute offsets
-  content.style.right = '';
-  content.style.bottom = '';
+  content.classList.add('centered');
   loadCategories();
 }
+
+function openBudgetCategoryModal() {
+  isBudgetCategorySelection = true;
+  openCategoryModal();
+}
+
 function closeModal() {
   categoryModal.style.display = 'none';
-  categoryModal.setAttribute('aria-hidden','true');
+  categoryModal.setAttribute('aria-hidden', 'true');
+  isBudgetCategorySelection = false;
 }
 
 async function loadCategories() {
   categoryList.innerHTML = 'Loading...';
   try {
-    const data = await listCategories();
-    renderCategories(data || []);
+    const categories = await apiRequest('/categories', 'GET');
+    renderCategories(categories || []);
   } catch (err) {
-    categoryList.innerHTML = 'Error loading categories';
-    console.error(err);
+    categoryList.innerHTML = 'Error';
   }
 }
 
-function createCategoryListItem(cat){
-  const li = document.createElement('li');
-  const label = document.createElement('div');
-  label.className = 'label';
-  label.textContent = (cat.name||cat.title||'(no name)');
-  // clicking the row selects the category
-  li.addEventListener('click', (e) => {
-    if (e.target && e.target.closest('.del-cat')) return;
-    selectCategory(cat);
-  });
-  li.appendChild(label);
-
-  const del = document.createElement('button');
-  del.textContent = 'Delete';
-  del.className = 'small del-cat';
-  del.addEventListener('click', async (e) => {
-    e.stopPropagation();
-    if (!confirm('Delete category?')) return;
-    try {
-      await apiDeleteCategory(cat._id);
-      loadCategories();
-    } catch (err) {
-      alert('Delete failed: ' + (err.message || err));
-    }
-  });
-  li.appendChild(del);
-
-  return li;
-}
-
-function renderCategories(items) {
-  categoryList.innerHTML = '';
-  if (!items.length) {
+function renderCategories(categories) {
+  if (!categories.length) {
     categoryList.innerHTML = '<p>No categories yet.</p>';
     return;
   }
+  
   const ul = document.createElement('ul');
-  items.forEach(cat => ul.appendChild(createCategoryListItem(cat)));
+  categories.forEach(cat => {
+    const li = document.createElement('li');
+    li.innerHTML = `
+      <div class="label">${cat.name}</div>
+      <button class="small del-cat">Delete</button>
+    `;
+    
+    li.querySelector('.label').addEventListener('click', () => selectCategory(cat));
+    li.querySelector('.del-cat').addEventListener('click', async (e) => {
+      e.stopPropagation();
+      if (!confirm('Delete category?')) return;
+      try {
+        await apiRequest(`/categories/${cat._id}`, 'DELETE');
+        loadCategories();
+      } catch (err) {
+        alert('Delete failed');
+      }
+    });
+    
+    ul.appendChild(li);
+  });
+  
+  categoryList.innerHTML = '';
   categoryList.appendChild(ul);
 }
 
 function selectCategory(cat) {
-  categoryInput.value = cat._id;
-  categoryLabel.textContent = cat.name || cat.title || 'Unnamed';
+  if (isBudgetCategorySelection) {
+    budgetCategoryInput.value = cat._id;
+    budgetCategoryLabel.textContent = cat.name;
+  } else {
+    categoryInput.value = cat._id;
+    categoryLabel.textContent = cat.name;
+  }
   closeModal();
 }
 
-if (createCategoryBtn){
-  createCategoryBtn.addEventListener('click', async () => {
-    const name = (newCategoryNameInput && newCategoryNameInput.value||'').trim();
-    if (!name) return;
-    createCategoryBtn.disabled = true;
-    try{
-      const user = JSON.parse(sessionStorage.getItem('user')||'null');
-      const userId = user?.id || user?._id || null;
-      const extra = {};
-      if (userId) extra.userId = userId;
-
-      const created = await apiCreateCategory(name, extra);
-      // ensure list exists
-      const ul = categoryList.querySelector('ul') || document.createElement('ul');
-      // prepend created item
-      const li = createCategoryListItem(created);
-      ul.insertBefore(li, ul.firstChild);
-      if (!categoryList.contains(ul)) categoryList.appendChild(ul);
-      newCategoryNameInput.value = '';
-      newCategoryNameInput.focus();
-    } catch(err){
-      console.error(err);
-      alert('Create failed: ' + (err.message||err));
-    } finally{ createCategoryBtn.disabled = false; }
-  });
-}
-
-// form submit
-form.addEventListener('submit', e => {
-  e.preventDefault();
-  const fd = new FormData(form);
-  const payload = {
-    title: fd.get('title'),
-    amount: parseFloat(fd.get('amount')),
-    date: fd.get('date') || undefined,
-    category: fd.get('category') || undefined,
-    costType: fd.get('costType') || undefined,
-    notes: fd.get('notes') || undefined,
-    // include userId from sessionStorage/localStorage so backend can use it as fallback
-    userId: (function(){
-      try{
-        const u = JSON.parse(sessionStorage.getItem('user') || localStorage.getItem('user') || 'null');
-        return u?.id || u?._id || null;
-      } catch(error){ 
-        console.log(error)
-        return null; }
-    })()
-  };
-  createExpense(payload);
-  // reset form
-  form.reset();
-  categoryLabel.textContent = '';
-  const dateEl = form.elements.date;
-  if (dateEl) dateEl.value = new Date().toISOString().slice(0,10);
-  categoryInput.value = '';
-  // reset cost type UI
-  if (costTypeInput) costTypeInput.value = '';
-  if (btnVariable) { btnVariable.className = 'secondary-btn'; }
-  if (btnFixed) { btnFixed.className = 'secondary-btn'; }
-});
-
-// UI bindings
-if (chooseCategoryBtn) chooseCategoryBtn.addEventListener('click', openCategoryModal);
-if (closeCategoryModal) closeCategoryModal.addEventListener('click', closeModal);
-window.addEventListener('click', (e)=>{ if (e.target===categoryModal) closeModal(); });
-
-// Cost type toggle behavior
-function selectCostType(value){
-  if (!costTypeInput) return;
-  costTypeInput.value = value;
-  if (value === 'variable'){
-    if (btnVariable) btnVariable.className = 'primary-btn';
-    if (btnFixed) btnFixed.className = 'secondary-btn';
-  } else if (value === 'fixed'){
-    if (btnFixed) btnFixed.className = 'primary-btn';
-    if (btnVariable) btnVariable.className = 'secondary-btn';
-  }
-}
-
-if (btnVariable) btnVariable.addEventListener('click', ()=> selectCostType('variable'));
-if (btnFixed) btnFixed.addEventListener('click', ()=> selectCostType('fixed'));
-
-// defaults on load
+// ========== PAGE LOAD ==========
 window.addEventListener('load', () => {
-  // set date to today if empty
-  const dateEl = form.elements.date;
-  if (dateEl && !dateEl.value) dateEl.value = new Date().toISOString().slice(0,10);
-  // ensure amount step is 1
-  const amountEl = form.elements.amount;
-  if (amountEl) amountEl.step = '1';
-  // loadExpenses();
-  // attach return button handler
-  const returnBtn = document.getElementById('returnBtn');
-  if (returnBtn) returnBtn.addEventListener('click', () => { window.history.back(); });
+  // Set current date
+  form.elements.date.value = new Date().toISOString().slice(0, 10);
+  
+  // Expense form submit
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const user = JSON.parse(sessionStorage.getItem('user'));
+    
+    const payload = {
+      userId: user.id,
+      title: form.elements.title.value.trim(),
+      amount: parseFloat(form.elements.amount.value),
+      date: form.elements.date.value || new Date().toISOString(),
+      category: categoryInput.value || null,
+      costType: costTypeInput.value || null,
+      notes: form.elements.notes.value.trim() || null
+    };
+
+    try {
+      await apiRequest('/expenses', 'POST', payload);
+      alert('Expense created!');
+      form.reset();
+      categoryLabel.textContent = '';
+      categoryInput.value = '';
+      costTypeInput.value = '';
+      categoryInput.value = 'No category selected';
+      btnVariable.className = 'secondary-btn';
+      btnFixed.className = 'secondary-btn';
+      form.elements.date.value = new Date().toISOString().slice(0, 10);
+    } catch (err) {
+      alert('Error: ' + err.message);
+    }
+  });
+  
+  // Income form submit
+  incomeForm.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    try {
+      await apiRequest('/income', 'POST', {
+        source: incomeForm.elements.source.value.trim(),
+        amount: parseFloat(incomeForm.elements.amount.value)
+      });
+      incomeForm.reset();
+      // loadIncomes();
+      alert('Income saved!');
+    } catch (err) {
+      alert('Error: ' + err.message);
+    }
+  });
+  
+  // Budget form submit
+  budgetForm.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    
+    try {
+      await apiRequest('/budget', 'POST', {
+        category: budgetCategoryInput.value,
+        amount: parseFloat(budgetForm.elements.amount.value)
+      });
+      budgetForm.reset();
+      budgetCategoryLabel.textContent = 'No category selected';
+      budgetCategoryInput.value = '';
+      // loadBudgets()
+      alert('Budget saved!');
+    } catch (err) {
+      alert('Error: ' + err.message);
+    }
+  });
+  
+  // Create category button
+  createCategoryBtn.addEventListener('click', async () => {
+    const name = newCategoryNameInput.value.trim();
+    if (!name) return;
+    
+    try {
+      await apiRequest('/categories', 'POST', { name });
+      newCategoryNameInput.value = '';
+      loadCategories();
+    } catch (err) {
+      alert('Error: ' + err.message);
+    }
+  });
+  
+  // Cost type buttons
+  btnVariable.addEventListener('click', () => {
+    costTypeInput.value = 'variable';
+    btnVariable.className = 'primary-btn';
+    btnFixed.className = 'secondary-btn';
+  });
+
+  btnFixed.addEventListener('click', () => {
+    costTypeInput.value = 'fixed';
+    btnFixed.className = 'primary-btn';
+    btnVariable.className = 'secondary-btn';
+  });
+  
+  // Category modal buttons
+  chooseCategoryBtn.addEventListener('click', openCategoryModal);
+  chooseBudgetCategoryBtn.addEventListener('click', openBudgetCategoryModal);
+  closeCategoryModal.addEventListener('click', closeModal);
+  
+  // Close modal on outside click
+  window.addEventListener('click', (e) => {
+    if (e.target === categoryModal) closeModal();
+  });
+  
+  // Return button
+  document.getElementById('returnBtn').addEventListener('click', () => window.history.back());
+  
+  // // Load data
+  // loadIncomes();
+  // loadBudgets();
 });
+
+// ========== INCOME ==========
+// async function loadIncomes() {
+//   const incomeList = document.getElementById('incomeList');
+//   try {
+//     const user = JSON.parse(sessionStorage.getItem('user'));
+//     const incomes = await apiRequest('/income', 'POST', { userId: user.id });
+    
+//     if (!incomes.length) {
+//       incomeList.innerHTML = '<p style="color: #999;">No income yet</p>';
+//       return;
+//     }
+    
+//     const template = document.getElementById('incomeItemTemplate');
+//     incomeList.innerHTML = '';
+    
+//     incomes.forEach(inc => {
+//       const clone = template.content.cloneNode(true);
+//       clone.querySelector('.income-source').textContent = inc.source;
+//       clone.querySelector('.income-amount').textContent = `€${inc.amount.toFixed(2)}`;
+//       clone.querySelector('.income-delete').onclick = () => deleteIncome(inc._id);
+//       incomeList.appendChild(clone);
+//     });
+//   } catch (err) {
+//     incomeList.innerHTML = '<p style="color: #999;">No income yet</p>';
+//   }
+// }
+
+// async function deleteIncome(id) {
+//   if (!confirm('Delete?')) return;
+//   await apiRequest(`/income/${id}`, 'DELETE');
+//   loadIncomes();
+// }
+
+// ========== BUDGET ==========
+// async function loadBudgets() {
+//   const budgetList = document.getElementById('budgetList');
+//   try {
+//     const user = JSON.parse(sessionStorage.getItem('user'));
+//     const budget = await apiRequest('/budget', 'POST', { userId: user.id });
+    
+//     if (!budget) {
+//       budgetList.innerHTML = '<p style="color: #999;">No budget yet</p>';
+//       return;
+//     }
+    
+//     const template = document.getElementById('budgetItemTemplate');
+//     const clone = template.content.cloneNode(true);
+    
+//     const categoryName = budget.category?.name || 'Unknown';
+//     clone.querySelector('.budget-category').textContent = categoryName;
+//     clone.querySelector('.budget-amount').textContent = `€${budget.amount.toFixed(2)}`;
+//     clone.querySelector('.budget-delete').onclick = () => deleteBudget(budget._id);
+    
+//     budgetList.innerHTML = '';
+//     budgetList.appendChild(clone);
+//   } catch (err) {
+//     budgetList.innerHTML = '<p style="color: #999;">No budget yet</p>';
+//   }
+// }
+
+// async function deleteBudget(id) {
+//   if (!confirm('Delete?')) return;
+//   await apiRequest(`/budget/${id}`, 'DELETE');
+//   loadBudgets();
+// }
+
+// // Make delete functions global
+// window.deleteIncome = deleteIncome;
+// window.deleteBudget = deleteBudget;
