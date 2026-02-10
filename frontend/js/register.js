@@ -61,6 +61,7 @@ document.addEventListener('DOMContentLoaded', () => {
             if (response.ok) {
                 // Registration successful
                 sessionStorage.setItem('user', JSON.stringify(data.user));
+                sessionStorage.setItem('token', data.token);
                 sessionStorage.removeItem('registerEmail');
                 window.location.href = '/html/dashboard.html';
             } else {

@@ -276,7 +276,7 @@ async function displayPieChart(token) {
             status.style.marginTop = '4px';
             
             if (category.status === 'under-budget') {
-                status.textContent = `Under budget: ${category.remaining.toFixed(2)}${curr} left`;
+                status.textContent = `Budget: ${category.remaining.toFixed(2)}${curr} left`;
             } else if (category.status === 'over-budget') {
                 status.textContent = `Over budget: ${category.remaining.toFixed(2)}${curr}`;
             }

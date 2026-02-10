@@ -1,7 +1,190 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+    background: linear-gradient(135deg, #4e65d1 0%, #6b52c0 100%);
+    min-height: 100vh;
+    color: white;
+    overflow-x: hidden;
+}
+.topbar-dashboard {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    height: 80px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 5%;
+    background: rgba(255, 255, 255, 0.1); 
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    z-index: 1000;
+}
+.nav-left-dashboard {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.nav-left img {
+    background: white;
+    padding: 0px;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+}
+
+.nav-btn-ghost {
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    color: white;
+    padding: 8px 18px;
+    border-radius: 20px;
+    cursor: pointer;
+    font-weight: 500;
+    transition: all 0.3s ease;
+    font-size: 0.9rem;
+}
+
+.nav-btn-ghost:hover {
+    background: rgba(255, 255, 255, 0.25);
+    transform: translateY(-1px);
+}
+
+.nav-right-dashboard {
+    display: flex;
+    gap: 12px;
+}
+.secondary-btn {
+    background: white;
+    color: #4e65d1;
+    border: none;
+    padding: 8px 20px;
+    border-radius: 20px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.secondary-btn:hover {
+    background: #f0f0f0;
+    transform: scale(1.05);
+}
+
+#UserBtn {
+    padding: 8px 12px; /* Quadratischer für das Icon */
+}
+
+.settingsCard {
+    background: white;
+    padding: 60px;
+    border-radius: 40px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+    width: 70%;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    display: none;
+    position: absolute;
+    z-index: 10;
+}
+.settingsCard.visible{
+    display: flex;
+}
+
+
+.settingsCard h1 {
+    text-align: center;
+    color: #333;
+    margin-bottom: 10px;
+}
+
+.settings-list {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+
+
+.settings-btn {
+    padding: 12px;
+    border: 1px solid #667eea;
+    background: white;
+    color: #334155;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: 600;
+    transition: transform 0.2s, opacity 0.2s;
+}
+
+.settings-btn:hover {
+    opacity: 0.95;
+    transform: translateY(-1px);
+}
+
+.settings-row {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.settings-row label {
+    font-weight: 600;
+    color: #333;
+}
+
+.settings-select {
+    padding: 10px;
+    border: 1px solid #667eea;
+    border-radius: 6px;
+    font-size: 1rem;
+    margin-top: 10px;
+}
+.extra-area {
+    display: none;      
+    margin-top: 12px;
+}
+
+.extra-area.hidden {
+    display: none;
+}
+
+.extra-area.visible {
+    display: block;
+}
+
+.mainAreaDashboard {
+    position: relative;
+    padding-top: 120px; /* Platz für die fixierte Topbar */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-bottom: 50px;
+    margin: auto;
+}
+.dashboard-title {
+    text-align: center;
+    margin-bottom: 10x;
+    font-size: 2.5rem;
+    font-weight: 800;
+    color: #edede3;
+    text-shadow: 0 4px 15px rgba(0,0,0,0.2);
+}
+
+
 /* Main dashboard layout - 2 Spalten */
 .dashboard-content-wrapper {
     display: grid;
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: 2fr 3fr;
     gap: 50px;
     margin-top: 10px;
 }
@@ -25,19 +208,17 @@
     }
 }
 /* Container */
-.container-dashboard {
-    width: 100%;
-    max-width: 5000px;
-    padding: 20px;
-    margin-bottom: 20px
-}
+
 .dashboard {
-    background: white;
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
     padding: 40px;
-    border-radius: 10px;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+    border-radius: 24px;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    box-shadow: 0 20px 40px rgba(0,0,0,0.2);
     text-align: center;
-    max-width: 2500
+    width: 1300px
 }
 .overview-cards {
     display: grid;
@@ -164,3 +345,4 @@
 .dashboard-actions {
     margin-top: 30px;
 }
+

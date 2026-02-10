@@ -1,16 +1,11 @@
-// Registration page functionality
+// Password page - password input functionality
 document.addEventListener('DOMContentLoaded', () => {
-    const registerForm = document.getElementById('registerForm');
+    const passwordForm = document.getElementById('passwordForm');
     const errorMessage = document.getElementById('errorMessage');
-    const emailInput = document.getElementById('email');
-    const birthdayInput = document.getElementById('birthday');
-
-    // Set max date for birthday to today
-    const today = new Date().toISOString().split('T')[0];
-    birthdayInput.setAttribute('max', today);
+    const userEmailElement = document.getElementById('userEmail');
 
     // Get email from session storage
-    const email = sessionStorage.getItem('registerEmail');
+    const email = sessionStorage.getItem('loginEmail');
 
     if (!email) {
         // If no email in session, redirect to login
@@ -18,54 +13,41 @@ document.addEventListener('DOMContentLoaded', () => {
         return;
     }
 
-    // Pre-fill the email
-    emailInput.value = email;
+    // Display the email
+    userEmailElement.textContent = email;
 
-    registerForm.addEventListener('submit', async (e) => {
+    passwordForm.addEventListener('submit', async (e) => {
         e.preventDefault();
         errorMessage.textContent = '';
 
-        const surname = document.getElementById('surname').value.trim();
-        const lastname = document.getElementById('lastname').value.trim();
-        const birthday = document.getElementById('birthday').value;
         const password = document.getElementById('password').value;
 
-        if (!surname || !lastname || !birthday || !password) {
-            errorMessage.textContent = 'Please fill in all fields';
-            return;
-        }
-
-        if (password.length < 6) {
-            errorMessage.textContent = 'Password must be at least 6 characters long';
+        if (!password) {
+            errorMessage.textContent = 'Please enter your password';
             return;
         }
 
         try {
-            // Register user
-            const response = await fetch('/api/v1/users/register', {
+            // Attempt to login
+            const response = await fetch('/api/v1/users/login', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
                 },
-                body: JSON.stringify({ 
-                    email, 
-                    surname,
-                    lastname,
-                    birthday, 
-                    password 
-                })
+                body: JSON.stringify({ email, password })
             });
 
             const data = await response.json();
 
             if (response.ok) {
-                // Registration successful
+                // Login successful
                 sessionStorage.setItem('user', JSON.stringify(data.user));
-                sessionStorage.removeItem('registerEmail');
+                sessionStorage.setItem('token', data.token);
+                sessionStorage.removeItem('loginEmail');
                 window.location.href = '/html/dashboard.html';
             } else {
-                // Registration failed
-                errorMessage.textContent = data.message || 'Registration failed';
+                // Login failed
+                errorMessage.textContent = data.message || 'Invalid password';
             }
         } catch (error) {
             errorMessage.textContent = 'An error occurred. Please try again.';
