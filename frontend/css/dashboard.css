@@ -39,7 +39,7 @@ body {
 .nav-left img {
     background: white;
     padding: 0px;
-    border-radius: 10px; /* Abgerundetes Icon */
+    border-radius: 10px;
     box-shadow: 0 4px 10px rgba(0,0,0,0.1);
 }
 

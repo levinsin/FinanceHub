@@ -72,6 +72,7 @@ body {
     font-weight: 700;
     cursor: pointer;
     transition: transform 0.2s;
+    
 }
 
 .login-white-btn:hover {
@@ -113,7 +114,7 @@ body {
 }
 
 .main-illustration {
-    max-width: 110%; /* Etwas größer für den Effekt */
+    max-width: 110%; 
     height: auto;
     border-radius: 30px;
     box-shadow: 0 30px 60px rgba(0,0,0,0.3);
