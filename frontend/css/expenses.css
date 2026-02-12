@@ -1,6 +1,8 @@
 /* Expenses page specific styles */
 
+
 /* Form group styles */
+
 .form-group label {
     display: block;
     color: #333;
@@ -25,7 +27,9 @@ form.auth-form {
     margin-bottom: 18px;
 }
 
+
 /* Modal for category selection */
+
 .modal {
     display: none;
     position: fixed;
@@ -164,7 +168,9 @@ form.auth-form {
     padding: 6px 8px;
 }
 
+
 /* Category placeholder */
+
 .category-placeholder {
     margin-top: 8px;
     padding: 8px 12px;
@@ -180,8 +186,11 @@ form.auth-form {
     font-weight: 500;
 }
 
+
 /* Income and Budget items */
-.income-item, .budget-item {
+
+.income-item,
+.budget-item {
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -191,11 +200,13 @@ form.auth-form {
     margin-bottom: 8px;
 }
 
-.income-item strong, .budget-item strong {
+.income-item strong,
+.budget-item strong {
     color: #333;
 }
 
-.income-amount, .budget-amount {
+.income-amount,
+.budget-amount {
     color: #667eea;
     font-weight: bold;
 }
@@ -214,7 +225,9 @@ form.auth-form {
     background: #dc2626;
 }
 
+
 /* Expenses page layout */
+
 .expenses-layout {
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -249,7 +262,6 @@ form.auth-form {
     .expenses-layout {
         grid-template-columns: 1fr;
     }
-    
     .expenses-layout .expense-main,
     .expenses-layout .side-sections {
         grid-column: 1;

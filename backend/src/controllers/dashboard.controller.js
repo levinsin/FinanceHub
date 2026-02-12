@@ -5,24 +5,24 @@ import SavingsGoal from "../models/savingsGoal.model.js";
 import Category from "../models/category.model.js";
 import mongoose from "mongoose";
 
-export const getDashboardData = async (req, res) => {
+export const getDashboardData = async(req, res) => {
     try {
         const userId = req.user.id;
         if (!userId) return res.status(401).json({ message: 'Authentication required' });
 
         const incomes = await Income.find({ userId });
         const totalIncome = incomes.reduce((sum, income) => sum + income.amount, 0);
-        
+
         const expenses = await Expense.find({ userId });
         const totalExpenses = expenses.reduce((sum, expense) => sum + expense.amount, 0);
 
-        const savingsTarget = await SavingsGoal.find({ userId , enum: 'monthly'});
+        const savingsTarget = await SavingsGoal.find({ userId, enum: 'monthly' });
         const totalSavings = savingsTarget.reduce((sum, goal) => sum + goal.targetAmount, 0);
         const availableMoney = totalIncome - totalExpenses - savingsTarget;
 
         return res.json({
             income: totalIncome,
-            expenses:totalExpenses,
+            expenses: totalExpenses,
             savings: totalSavings,
             available: availableMoney,
         });
@@ -33,20 +33,22 @@ export const getDashboardData = async (req, res) => {
     }
 };
 
-export const getCategoryBreakdown = async (req, res) => {
+export const getCategoryBreakdown = async(req, res) => {
     try {
         const userId = req.user.id;
         if (!userId) return res.status(401).json({ message: 'Authentication required' });
 
         const categoryExpenses = await Expense.aggregate([
             { $match: { userId: new mongoose.Types.ObjectId(userId) } },
-            { $group: { 
-                _id: "$category",
-                total: { $sum: "$amount"},
-                count: { $sum: 1 }
-            }}
+            {
+                $group: {
+                    _id: "$category",
+                    total: { $sum: "$amount" },
+                    count: { $sum: 1 }
+                }
+            }
         ]);
-        
+
 
         const budgets = await Budget.find({ userId });
         const budgetMap = {};
@@ -56,7 +58,7 @@ export const getCategoryBreakdown = async (req, res) => {
 
         const categoryIds = categoryExpenses.map(ce => ce._id);
         const categories = await Category.find({ _id: { $in: categoryIds } });
-        
+
         const categoryMap = {};
         categories.forEach(cat => {
             categoryMap[cat._id.toString()] = cat.name; // maybe no string but objectId
@@ -71,8 +73,8 @@ export const getCategoryBreakdown = async (req, res) => {
             let status = 'no-budget';
             let remaining = 0
             if (budget !== null) {
-                if (spent <= budget) { 
-                    status = 'under-budget'; 
+                if (spent <= budget) {
+                    status = 'under-budget';
                     remaining = budget - spent;
                 } else {
                     status = 'over-budget';
@@ -101,6 +103,3 @@ export const getCategoryBreakdown = async (req, res) => {
         return res.status(500).json({ message: 'Could not fetch category breakdown', error: err.message });
     }
 };
-
-        
-

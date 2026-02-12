@@ -123,6 +123,7 @@ document.addEventListener('DOMContentLoaded', () => {
     displayPieChart(token);
     displayOverview(token);
 });
+
 async function getCurrency(token) {
     try {
         // Fetch current settings from backend for currency
