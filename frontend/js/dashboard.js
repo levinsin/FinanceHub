@@ -8,7 +8,8 @@ const capitalize = (str) => {
 document.addEventListener('DOMContentLoaded', () => {
     const logoutBtn = document.getElementById('logoutBtn');
     const createExpenseBtn = document.getElementById('createExpenseBtn');
-    
+    const darkModeToggle = document.getElementById('darkModeToggle');
+
     // Settings modal elements
     const settingsBtn = document.getElementById('settingsBtn');
     const settingsModal = document.getElementById('settingsModal');
@@ -19,7 +20,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // Check if user is logged in
     const userId = sessionStorage.getItem('user');
     const token = sessionStorage.getItem('token');
-    
+
     if (!userId || !token) {
         // Not logged in, redirect to home
         window.location.href = '/html/index.html';
@@ -34,15 +35,37 @@ document.addEventListener('DOMContentLoaded', () => {
             window.location.href = '/html/index.html';
         });
     }
-    
+
     if (createExpenseBtn) {
         createExpenseBtn.addEventListener('click', () => {
             window.location.href = '/html/expenses.html';
         });
     }
 
+    // Dark Mode Toggle
+    const initDarkMode = () => {
+        const isDarkMode = localStorage.getItem('darkMode') === 'true';
+        if (isDarkMode) {
+            document.body.classList.add('dark-mode');
+            if (darkModeToggle) {
+                darkModeToggle.innerHTML = '<i class="fas fa-sun"></i>';
+            }
+        }
+    };
+
+    if (darkModeToggle) {
+        console.log('Dark mode toggle found, initializing event listener');
+        darkModeToggle.addEventListener('click', () => {
+            document.body.classList.toggle('dark-mode');
+            const isDarkMode = document.body.classList.contains('dark-mode');
+            localStorage.setItem('darkMode', isDarkMode);
+            darkModeToggle.innerHTML = isDarkMode ? '<i class="fas fa-sun"></i>' : '<i class="fas fa-moon"></i>';
+        });
+    }
+    initDarkMode();
+
     // Settings Modal Functionality
-    const openSettingsModal = async () => {
+    const openSettingsModal = async() => {
         try {
             // Fetch current settings from backend
             const response = await fetch('/api/v1/settings', {
@@ -78,7 +101,7 @@ document.addEventListener('DOMContentLoaded', () => {
         displayOverview(token);
     };
 
-    const saveSettings = async () => {
+    const saveSettings = async() => {
         try {
             const response = await fetch('/api/v1/settings', {
                 method: 'PUT',
@@ -138,9 +161,9 @@ async function getCurrency(token) {
         if (response.ok) {
             const settings = await response.json();
             curr = settings.currency;
-            if (curr ==='EUR') curr = "€";
-            if (curr ==='USD') curr = "$";
-            if (curr ==='GBP') curr = "£";
+            if (curr === 'EUR') curr = "€";
+            if (curr === 'USD') curr = "$";
+            if (curr === 'GBP') curr = "£";
             return curr;
         } else {
             console.error('Failed to fetch settings');
@@ -168,7 +191,7 @@ async function displayOverview(token) {
         console.error('Error fetching settings:', error);
     }
     const curr = await getCurrency(token);
-    
+
     document.getElementById('incomeValue').textContent = `${overview.income.toFixed(2)} ${curr}`;
     document.getElementById('expensesValue').textContent = `${overview.expenses.toFixed(2)} ${curr}`;
     document.getElementById('savingsValue').textContent = `${overview.savings.toFixed(2)} ${curr}`;
@@ -194,7 +217,7 @@ async function displayPieChart(token) {
     const checkedIds = Array.from(
         document.querySelectorAll('#categorySidebar input[type="checkbox"]:checked')
     ).map(cb => cb.value);
-    
+
     const categories = categoryData.categories
         .filter(cat => checkedIds.includes(cat.categoryId))
         .sort((a, b) => a.categoryName.localeCompare(b.categoryName));
@@ -248,25 +271,25 @@ async function displayPieChart(token) {
     legendContainer.innerHTML = '';
     categories.forEach((category, index) => {
         const percentage = ((category.spent / total) * 100).toFixed(1);
-        
+
         const legendItem = document.createElement('div');
         legendItem.className = 'legend-item';
-        
+
         const colorBox = document.createElement('div');
         colorBox.className = 'legend-color';
         colorBox.style.backgroundColor = colors[index];
-        
+
         const info = document.createElement('div');
         info.className = 'legend-info';
-        
+
         const name = document.createElement('div');
         name.className = 'legend-name';
         name.textContent = `${category.categoryName} (${percentage}%)`;
-        
+
         const amount = document.createElement('div');
         amount.className = 'legend-amount';
         amount.textContent = `${category.spent.toFixed(2)}${curr}`;
-        
+
         if (category.budget) {
             const status = document.createElement('div');
             status.className = `legend-status ${category.status === 'under-budget' ? 'under' : 'over'}`;
@@ -275,16 +298,16 @@ async function displayPieChart(token) {
             status.style.padding = '2px 6px';
             status.style.borderRadius = '3px';
             status.style.marginTop = '4px';
-            
+
             if (category.status === 'under-budget') {
                 status.textContent = `Budget: ${category.remaining.toFixed(2)}${curr} left`;
             } else if (category.status === 'over-budget') {
                 status.textContent = `Over budget: ${category.remaining.toFixed(2)}${curr}`;
             }
-            
+
             amount.appendChild(status);
-        }   
-        
+        }
+
         info.appendChild(name);
         info.appendChild(amount);
         legendItem.appendChild(colorBox);
@@ -309,7 +332,7 @@ async function loadCategories(token) {
                 'Authorization': `Bearer ${token}`
             }
         });
-        
+
         if (categoriesResponse.ok) {
             const categories = await categoriesResponse.json();
 
@@ -328,7 +351,7 @@ async function loadCategories(token) {
                 const label = document.createElement('label')
                 label.htmlFor = `category-${cat._id}`
                 label.textContent = cat.name
-                
+
                 listItem.appendChild(checkbox)
                 listItem.appendChild(label)
                 sidebar.appendChild(listItem)
@@ -336,5 +359,5 @@ async function loadCategories(token) {
         }
     } catch (error) {
         console.error('Error loading categories:', error);
-    }       
+    }
 }
