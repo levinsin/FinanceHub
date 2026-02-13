@@ -46,7 +46,7 @@ let isBudgetCategorySelection = false;
 
 // ========== CATEGORY MODAL ==========
 function openCategoryModal() {
-  categoryModal.style.display = 'block';
+  categoryModal.style.display = 'flex';
   categoryModal.setAttribute('aria-hidden','false');
   const content = categoryModal.querySelector('.modal-content');
   content.classList.remove('floating');
@@ -225,6 +225,28 @@ window.addEventListener('load', () => {
     if (e.target === categoryModal) closeModal();
   });
   
-  // Return button
-  document.getElementById('returnBtn').addEventListener('click', () => window.history.back());
+  // nav bar buttons
+  const analyzeBtn = document.getElementById('analyzeBtn');
+  analyzeBtn.addEventListener('click', (e) => {
+    window.location.href = '/html/analyze.html';
+  });
+
+  const expenseBtn = document.getElementById('expenseBtn');
+  expenseBtn.addEventListener('click', (e) => {
+    window.location.reload();
+  });
+
+  const logoutBtn = document.getElementById('logoutBtn');
+  logoutBtn.addEventListener('click', (e) => {
+    sessionStorage.removeItem('user');
+    sessionStorage.removeItem('token');
+    window.location.href = '/html/index.html';
+  });
+
+  const settingsBtn = document.getElementById('settingsBtn');
+  settingsBtn.addEventListener('click', (e) => {
+
+  });
+
+
 });

@@ -8,6 +8,7 @@ const capitalize = (str) => {
 document.addEventListener('DOMContentLoaded', () => {
     const logoutBtn = document.getElementById('logoutBtn');
     const createExpenseBtn = document.getElementById('createExpenseBtn');
+    const analyticsBtn = document.getElementById('analyzeBtn');
     
     // Settings modal elements
     const settingsBtn = document.getElementById('settingsBtn');
@@ -38,6 +39,12 @@ document.addEventListener('DOMContentLoaded', () => {
     if (createExpenseBtn) {
         createExpenseBtn.addEventListener('click', () => {
             window.location.href = '/html/expenses.html';
+        });
+    }
+
+    if (analyticsBtn) {
+        analyticsBtn.addEventListener('click', () => {
+            window.location.href = '/html/analyze.html';
         });
     }
 

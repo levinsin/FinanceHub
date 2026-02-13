@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<body>
+    <link rel="stylesheet" href="/css/navbar.css">
+    <link rel="stylesheet" href="/css/settings.css">
+    <link rel="stylesheet" href="/css/dashboard.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="icon" href="/images/Icon_FinanceHub.png" type="image/png">
+
+    <header class="topbar-dashboard">
+        <div class="nav-left-dashboard">
+            <a href="/html/dashboard.html" target="_parent">
+                <img src="/images/Icon_FinanceHub.png" alt="Finanzhub Logo" id="dashboardIcon" width = 32>
+            </a>
+            <button id="createExpenseBtn" class="nav-btn-ghost">Create new expense</button>
+            <button id="analyzeBtn" class="nav-btn-ghost">Analyze data</button>
+        </div>
+        <h1 class="dashboard-title">Your Finance Dashboard</h1>
+        <div class="nav-right-dashboard">
+            <button id="settingsBtn" class="secondary-btn"><i class="fas fa-user"></i></button>
+            <button id="logoutBtn" class="secondary-btn">Logout</button>
+        </div>
+
+        <div id="settingsModal" class="modal" aria-hidden="true">
+            <div class="modal-content" target="_parent">
+                <header class="modal-header">
+                    <h3>Settings</h3>
+                    <button id="closeSettingsModal" class="btn-close">×</button>
+                </header>
+                <div class="modal-body">
+                    <div class="select-currency">
+                        <label for="currencySelect">Preferred Currency:</label>
+                        <select name="currency" id="currencySelect">
+                            <option value="EUR">Euro (EUR)</option>
+                            <option value="USD">US Dollar (USD)</option>
+                            <option value="GBP">British Pound (GBP)</option>
+                        </select>
+                    </div>
+                </div>
+                <footer class="modal-footer">
+                    <button id="saveSettingsBtn" class="primary-btn">Save Settings</button>
+                </footer>
+            </div>
+        </div>
+
+    </header>
+
+    <script src="/js/navbar.js"></script>
+
+</body>
+
+</html>
