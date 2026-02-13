@@ -4,11 +4,37 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="efd30377-3f7d-4a43-94a2-e2626d427a85" name="Changes" comment="extra docker file for nginx" />
+    <list default="true" id="efd30377-3f7d-4a43-94a2-e2626d427a85" name="Changes" comment="extra docker file for nginx">
+      <change afterPath="$PROJECT_DIR$/etc/nginx/conf.d/fastcgi.conf" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/css/analyze.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/html/analyze.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/html/navbar.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/js/analyze.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/js/navbar.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/compose.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/compose.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/etc/nginx/nginx.conf" beforeDir="false" afterPath="$PROJECT_DIR$/etc/nginx/nginx.conf" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/css/dashboard.css" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/css/dashboard.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/css/expenses.css" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/css/expenses.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/html/dashboard.html" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/html/dashboard.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/html/expenses.html" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/html/expenses.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/html/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/html/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/js/dashboard.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/js/dashboard.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/js/expenses.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/js/expenses.js" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="HTML File" />
+        <option value="JavaScript File" />
+        <option value="CSS File" />
+      </list>
+    </option>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_BRANCH_BY_REPOSITORY">
@@ -40,6 +66,8 @@
   </component>
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
+    "DefaultHtmlFileTemplate": "HTML File",
+    "JavaScript Debug.dashboard.html.executor": "Debug",
     "JavaScript Debug.register.html.executor": "Debug",
     "ModuleVcsDetector.initialDetectionPerformed": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
@@ -51,6 +79,7 @@
     "javascript.preferred.runtime.type.id": "node",
     "junie.onboarding.icon.badge.shown": "true",
     "last_opened_file_path": "/Users/chrissi/programmierung/web_engineering/FinanceHub",
+    "list.type.of.created.stylesheet": "CSS",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
@@ -62,12 +91,16 @@
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
-  <component name="RunManager">
+  <component name="RunManager" selected="JavaScript Debug.dashboard.html">
+    <configuration name="dashboard.html" type="JavascriptDebugType" temporary="true" nameIsGenerated="true" uri="http://localhost/html/dashboard.html">
+      <method v="2" />
+    </configuration>
     <configuration name="register.html" type="JavascriptDebugType" temporary="true" nameIsGenerated="true" uri="http://localhost/html/register.html">
       <method v="2" />
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="JavaScript Debug.dashboard.html" />
         <item itemvalue="JavaScript Debug.register.html" />
       </list>
     </recent_temporary>

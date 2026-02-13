@@ -1,19 +1,35 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="de">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>FinanceHub - Track Your Finances</title>
-    <link rel="stylesheet" href="/css/index.css">
+    <title>Finanzhub - Deine Finanzen im Blick</title>
+    <link rel="icon" href="/images/Icon_FinanceHub.png" type="image/png">
+    <link rel="stylesheet" href="/css/mainpage.css">
 </head>
 <body>
-    <div class="container">
-        <div class="welcome-section">
-            <h1>Welcome to FinanceHub</h1>
-            <p>Track your finances with ease</p>
-            <button id="loginBtn" class="primary-btn">Login / Register</button>
+    <nav class="topbar">
+        <div class="nav-left">
+             <img src="\images\Icon_FinanceHub.png" alt="Finanzhub Logo" width = 32>
+            <span class="brand-name">Finanzhub</span>
+            <button id = "aboutUs" class="nav-btn-ghost">About Us</button>
+            <button class="nav-btn-ghost">Support</button>
         </div>
-    </div>
+        <div class="nav-right">
+            <button id="loginBtn" class="login-white-btn">Login</button>
+        </div>
+    </nav>
+
+    <main class="hero-container">
+        <div class="hero-text">
+            <h1>Finanzhub</h1>
+            <p>Deine Zentrale für einen besseren Überblick über deine Finanzen</p>
+        </div>
+        <div class="hero-visual">
+            <img src="/images/Finanzübersicht und digitale Interaktion.png" alt="Dashboard" class="main-illustration">
+        </div>
+    </main>
+
     <script src="/js/index.js"></script>
 </body>
 </html>

@@ -1,19 +1,16 @@
 services:
-
   node-app:
     build:
       context: .
-      dockerfile: Dockerfile # Node image
+      dockerfile: Dockerfile
     ports:
-      - "4000:4000"
-    expose:
-      - "4000"
+      - "3000:3000"
     env_file:
       - .env
-    dns:
-      - 8.8.8.8
-    networks:
-      - app-network
+    environment:
+      - NODE_OPTIONS=--dns-result-order=ipv4first
+
+
 
   nginx:
     image: nginx:latest
@@ -21,7 +18,6 @@ services:
     ports:
       - "80:80"
     volumes:
-
       - ./etc/nginx/nginx.conf:/etc/nginx/nginx.conf:ro
       - ./etc/nginx/conf.d/proxy.conf:/etc/nginx/conf.d/proxy.conf:ro
       - ./etc/nginx/sites-available/finance-hub.local:/etc/nginx/sites-available/finance-hub.local:ro
@@ -29,9 +25,14 @@ services:
       - ./frontend:/usr/share/nginx/html:ro
     depends_on:
       - node-app
-    networks:
-      - app-network
 
-networks:
-  app-network:
-    driver: bridge
+
+#  mongo:
+ #   image: mongo:latest
+  #  ports:
+   #   - "27017:27017"
+    #volumes:
+     # - mongo-data:/data/db
+#
+#volumes:
+ # mongo-data:

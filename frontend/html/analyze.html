@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - FinanceHub</title>
+    <link rel="stylesheet" href="/css/dashboard.css">
+    <link rel="stylesheet" href="/css/settings.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="icon" href="/images/Icon_FinanceHub.png" type="image/png">
+</head>
+<body>
+    <header class="topbar-dashboard">
+        <iframe src="navbar.html" style="width:100%; height:80px; border:none;"></iframe>
+    </header>
+
+    <link rel="stylesheet" href="/css/analyze.css">
+    <main class="dashboard-grid">
+        <section class="card">
+            <h2>Einnahmen Verlauf</h2>
+            <div id="chart-income" style="height: 300px;">
+            </div>
+        </section>
+
+        <section class="card">
+            <h2>Ausgaben nach Kategorien</h2>
+            <div id="chart-expense" style="height: 300px;">
+            </div>
+        </section>
+
+        <section class="card table-container">
+            <h2>Transaktions-Details</h2>
+            <table>
+                <thead>
+                <tr>
+                    <th>Datum</th>
+                    <th>Kategorie</th>
+                    <th>Beschreibung</th>
+                    <th>Betrag</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td>11.02.2026</td>
+                    <td>Büro</td>
+                    <td>Neue Tastatur</td>
+                    <td class="status expense">- 45,00 €</td>
+                </tr>
+                <tr>
+                    <td>10.02.2026</td>
+                    <td>Projekt A</td>
+                    <td>Honorarzahlung</td>
+                    <td class="status income">+ 1.200,00 €</td>
+                </tr>
+                </tbody>
+            </table>
+        </section>
+    </main>
+
+
+    <div id="settingsModal" class="modal" aria-hidden="true">
+        <div class="modal-content">
+            <header class="modal-header">
+                <h3>Settings</h3>
+                <button id="closeSettingsModal" class="btn-close">×</button>
+            </header>
+            <div class="modal-body">
+                <div class="select-currency">
+                    <label for="currencySelect">Preferred Currency:</label>
+                    <select name="currency" id="currencySelect">
+                        <option value="EUR">Euro (EUR)</option>
+                        <option value="USD">US Dollar (USD)</option>
+                        <option value="GBP">British Pound (GBP)</option>
+                    </select>
+                </div>
+            </div>
+            <footer class="modal-footer">
+                <button id="saveSettingsBtn" class="primary-btn">Save Settings</button>
+            </footer>
+        </div>
+    </div>
+    <script src="/js/analyze.js"></script>
+</body>
+
+</html>
